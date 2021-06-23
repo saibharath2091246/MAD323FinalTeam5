@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="WelcomeActivity">
+
+
+    <ImageView
+
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/image1"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/seeshop_logo"/>
+    <TextView
+        android:id="@+id/welcome_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_to_seeshop"
+        android:textSize="@dimen/_30sp"
+        android:layout_below="@+id/image1"
+        android:textAlignment="center"
+        android:textColor="@color/app_color"
+
+        />
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:id="@+id/image2"
+        android:layout_below="@+id/welcome_tv"
+        android:src="@drawable/seeshop_img"/>
+
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/login"
+        android:layout_below="@+id/image2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/solid_bg_app_color_round_corner"
+        android:onClick="openLogin"
+        />
+
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/app_color"
+        android:text="SIGNUP"
+        android:layout_below="@+id/login_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/_16sp"
+        android:onClick="openSignup"
+        android:background="@android:color/transparent"
+        />
+
+    <Button
+        android:id="@+id/admin_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/app_color"
+        android:text="ADMIN"
+        android:textSize="@dimen/_20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="openAdmin"
+        android:background="@android:color/transparent"
+        />
+
+</RelativeLayout>
