@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.team5.seeshop.admin.AdminLoginActivity;
 import com.team5.seeshop.utils.SeeShopUtility;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -33,8 +34,9 @@ public class WelcomeActivity extends AppCompatActivity {
         SeeShopUtility.startActivity(WelcomeActivity.this, SignUpActivity.class);
 
     }
-
+    //home page login button
     public void openAdmin(View view) {
+        SeeShopUtility.startActivity(WelcomeActivity.this, AdminLoginActivity.class);
 
     }
 }
