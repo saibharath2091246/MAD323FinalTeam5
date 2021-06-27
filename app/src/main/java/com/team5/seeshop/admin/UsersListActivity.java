@@ -82,7 +82,7 @@ public class UsersListActivity extends AppCompatActivity {
 
                         if (userModel2.getUser_type().equals(user_type))
                         {
-                            Log.e("dedefdededed", userModel2.getUser_name());
+                            Log.e("UserList model username", userModel2.getUser_name());
 
                             userModel.setUser_name(userModel2.getUser_name());
                             userModel.setUser_email(userModel2.getUser_email());

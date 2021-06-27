@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                             finish();
                                         }else {
-                                            Toast.makeText(LoginActivity.this, "your account is not enabled", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, "Your Account Is Not Enabled", Toast.LENGTH_SHORT).show();
                                             mAuth.signOut();
                                             SharedPreferences preferences =getSharedPreferences(ConstantStrings.SEESHOP_PREFS, Context.MODE_PRIVATE);
                                             SharedPreferences.Editor editor = preferences.edit();
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Enter Your Email", Toast.LENGTH_SHORT).show();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(loginemail).matches()) {
-            Toast.makeText(LoginActivity.this, "Please enter valid Email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Please Enter Valid Email", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
