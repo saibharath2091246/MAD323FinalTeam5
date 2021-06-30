@@ -26,6 +26,7 @@
         <activity android:name=".admin.UsersListActivity"></activity>
         <activity android:name=".admin.AdminLoginActivity" />
         <activity android:name=".admin.AdminDashboardActivity" />
+        <activity android:name=".admin.AdminProfileActivity" />
     </application>
 
 </manifest>

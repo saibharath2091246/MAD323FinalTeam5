@@ -138,5 +138,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
         mDatabaseRef.removeValue();
         viewHolder.itemView.setVisibility(View.GONE);
         Toast.makeText(context, "Account Has Been Deleted!", Toast.LENGTH_SHORT).show();
+        userList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, userList.size());
     }
 }
