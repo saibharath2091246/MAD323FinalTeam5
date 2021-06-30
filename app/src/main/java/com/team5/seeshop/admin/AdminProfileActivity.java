@@ -62,8 +62,6 @@ public class AdminProfileActivity extends AppCompatActivity {
 
     }
 
-
-
     public void updateButtonClick() {
 
         if (!validateEmail() | !validatePassword()) {
@@ -150,7 +148,6 @@ public class AdminProfileActivity extends AppCompatActivity {
 
 
         });
-
 
     }
 }

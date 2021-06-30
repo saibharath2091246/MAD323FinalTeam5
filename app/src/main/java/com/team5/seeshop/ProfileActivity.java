@@ -38,9 +38,6 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout company_layout;
     Button update_btn;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +142,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                 }
             }
-
 
 
         });
