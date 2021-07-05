@@ -12,6 +12,17 @@
         <item
             android:id="@+id/nav_profile"
              android:title="profile" />
+        <item
+            android:id="@+id/nav_add_products"
+            android:title="Add products" />
+
+        <item
+            android:id="@+id/nav_manage_products"
+            android:title="Manage products" />
+
+        <item
+            android:id="@+id/nav_manage_orders"
+            android:title="Manage Orders" />
 
         <item
             android:id="@+id/nav_logout"

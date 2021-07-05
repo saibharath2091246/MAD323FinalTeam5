@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
+        <activity android:name=".seller.AddProductsActivity"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,13 +18,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".WelcomeActivity">
-        </activity>
+        <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".admin.UsersListActivity"></activity>
+        <activity android:name=".admin.UsersListActivity" />
         <activity android:name=".admin.AdminLoginActivity" />
         <activity android:name=".admin.AdminDashboardActivity" />
         <activity android:name=".admin.AdminProfileActivity" />

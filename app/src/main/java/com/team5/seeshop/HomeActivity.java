@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.team5.seeshop.seller.AddProductsActivity;
 import com.team5.seeshop.utils.ConstantStrings;
 
 import static androidx.core.view.GravityCompat.START;
@@ -114,6 +115,13 @@ public class HomeActivity extends AppCompatActivity {
                         profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         startActivity(profile);
+                        drawer.closeDrawer(START);
+                        break;
+
+                    case R.id.nav_add_products:
+                        Intent add_products = new Intent(HomeActivity.this, AddProductsActivity.class);
+                        add_products.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(add_products);
                         drawer.closeDrawer(START);
                         break;
 
