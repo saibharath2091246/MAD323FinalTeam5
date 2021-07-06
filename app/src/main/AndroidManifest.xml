@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
-        <activity android:name=".customer.CartActivity"></activity>
+        <activity android:name=".customer.MyOrdersActivity"></activity>
+        <activity android:name=".customer.OrderPlacedActivity" />
+        <activity android:name=".customer.CheckoutActivity" />
+        <activity android:name=".customer.CartActivity" />
         <activity android:name=".customer.ProductDetailsActivity" />
         <activity android:name=".customer.CustomerDashboardActivity" />
         <activity android:name=".seller.ManageProductsActivity" />
