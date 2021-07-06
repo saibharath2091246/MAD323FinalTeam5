@@ -25,6 +25,8 @@ public class ConstantStrings {
     public final static String USERS_TABLE_KEY ="users";
     public static final String CART = "cart";
     public static final String ORDERS = "orders";
+    public static final String PRODUCTS = "products";
+    public static final String PRODUCT_ITEM = "product_item";
 
 
 
