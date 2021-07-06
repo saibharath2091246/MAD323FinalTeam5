@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.team5.seeshop.seller.AddProductsActivity;
+import com.team5.seeshop.seller.ManageProductsActivity;
 import com.team5.seeshop.utils.ConstantStrings;
 
 import static androidx.core.view.GravityCompat.START;
@@ -124,6 +125,14 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(add_products);
                         drawer.closeDrawer(START);
                         break;
+
+                    case R.id.nav_manage_products:
+                        Intent manage_products = new Intent(HomeActivity.this, ManageProductsActivity.class);
+                        manage_products.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(manage_products);
+                        drawer.closeDrawer(START);
+                        break;
+
 
                     case R.id.nav_logout:
                         mAuth.signOut();
