@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "677694126585",
+    "project_id": "seeshop-2de7c",
+    "storage_bucket": "seeshop-2de7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677694126585:android:bb4c83c57a2d30f7516528",
+        "android_client_info": {
+          "package_name": "com.team5.seeshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677694126585-3291l4rri3b54iq6lgflc9jn4ofas3nq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe7C7l6yj-W53ttQOVe4IGG5lsaxp3qyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677694126585-3291l4rri3b54iq6lgflc9jn4ofas3nq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
