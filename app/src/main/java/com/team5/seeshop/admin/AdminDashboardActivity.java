@@ -79,4 +79,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+    public void openAllProducts(View view) {
+        Intent intent = new Intent(AdminDashboardActivity.this, AdminAllProductsActivity.class);
+        startActivity(intent);
+    }
 }
