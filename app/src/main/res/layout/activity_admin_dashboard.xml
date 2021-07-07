@@ -63,4 +63,54 @@
     </LinearLayout>
 
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:weightSum="2">
+
+        <!--Sellers-->
+        <RelativeLayout
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:onClick="openAdminProfile"
+            android:background="@color/app_color"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Profile"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/_16sp"/>
+
+        </RelativeLayout>
+        <!--Customers-->
+        <RelativeLayout
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:background="@color/app_color"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Orders"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/_16sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

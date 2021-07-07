@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
+        <activity android:name=".customer.MyOrdersActivity"></activity>
+        <activity android:name=".customer.OrderPlacedActivity" />
+        <activity android:name=".customer.CheckoutActivity" />
+        <activity android:name=".customer.CartActivity" />
+        <activity android:name=".customer.ProductDetailsActivity" />
+        <activity android:name=".customer.CustomerDashboardActivity" />
+        <activity android:name=".seller.ManageProductsActivity" />
+        <activity android:name=".seller.AddProductsActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,15 +25,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".WelcomeActivity">
-        </activity>
+        <activity android:name=".WelcomeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".admin.UsersListActivity"></activity>
+        <activity android:name=".admin.UsersListActivity" />
         <activity android:name=".admin.AdminLoginActivity" />
         <activity android:name=".admin.AdminDashboardActivity" />
+        <activity android:name=".admin.AdminProfileActivity" />
     </application>
 
 </manifest>

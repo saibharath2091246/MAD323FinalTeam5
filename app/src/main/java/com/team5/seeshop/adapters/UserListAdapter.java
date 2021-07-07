@@ -124,7 +124,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             public void onComplete(@NonNull Task<Void> task) {
 
               //  userList.get(pos).setUser_enable(val);
-                Toast.makeText(context, "seller account updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Seller Account Updated", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -137,6 +137,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
                 .child(userList.get(position).getUser_id());
         mDatabaseRef.removeValue();
         viewHolder.itemView.setVisibility(View.GONE);
-        Toast.makeText(context, "account has been deleted!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Account Has Been Deleted!", Toast.LENGTH_SHORT).show();
+        userList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, userList.size());
     }
 }

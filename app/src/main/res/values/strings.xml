@@ -3,4 +3,12 @@
     <string name="login">Login</string>
     <string name="welcome_to_seeshop">Welcome to SeeShop</string>
     <string name="password">Password</string>
+
+    <string-array name="brand">
+
+        <item>Apple</item>
+        <item>HP</item>
+        <item>Dell</item>
+        <item>Lenovo</item>
+    </string-array>
 </resources>

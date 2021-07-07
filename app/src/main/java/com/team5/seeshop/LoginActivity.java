@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.team5.seeshop.customer.CustomerDashboardActivity;
 import com.team5.seeshop.models.UserModel;
 import com.team5.seeshop.utils.ConstantStrings;
 import com.team5.seeshop.utils.SeeShopUtility;
@@ -94,17 +95,19 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putString(ConstantStrings.USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             editor.putString(ConstantStrings.USER_NAME, user.getUser_name());
                                             editor.apply();
+                                            Toast.makeText(LoginActivity.this, "Login Successful "  , Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                            startActivity(intent);
-                                            finish();
+                                            if (user.getUser_type().equals("seller")) {
+                                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else {
+                                                Intent intent = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
                                         }else {
                                             Toast.makeText(LoginActivity.this, "your account is not enabled", Toast.LENGTH_SHORT).show();
-                                            mAuth.signOut();
-                                            SharedPreferences preferences =getSharedPreferences(ConstantStrings.SEESHOP_PREFS, Context.MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = preferences.edit();
-                                            editor.clear();
-                                            editor.apply();
                                         }
 
 

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <!--brand layout-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            android:text="Brands"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apple"
+            android:id="@+id/apple_cb"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dell"
+            android:id="@+id/dell_cb"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HP"
+            android:id="@+id/hp_cb"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lenovo"
+            android:id="@+id/lenovo_cb"/>
+
+
+    </LinearLayout>
+
+    <!--range-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:orientation="vertical"
+        android:layout_margin="@dimen/_10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            android:text="$ Price"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="@dimen/_10dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_20dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/exptitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/app_color"
+
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:text="Min"/>
+                <LinearLayout
+                    android:layout_toRightOf="@+id/exptitle_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:background="@drawable/textfield_bg"
+                    android:layout_centerVertical="true"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/min_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:inputType="number"
+                        android:textColorHint="#BFBFBF" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--cvv-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_20dp"
+
+                >
+
+                <TextView
+                    android:id="@+id/cvvtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/app_color"
+
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:text="Max"/>
+                <LinearLayout
+                    android:layout_toRightOf="@+id/cvvtitle_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:background="@drawable/textfield_bg"
+                    android:layout_centerVertical="true"
+                    >
+
+                    <EditText
+                        android:id="@+id/max_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:inputType="number"
+                        android:textColorHint="#BFBFBF"
+                        />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/apply_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Apply"
+         android:background="@drawable/solid_bg_app_color_round_corner"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        />
+
+</LinearLayout>
