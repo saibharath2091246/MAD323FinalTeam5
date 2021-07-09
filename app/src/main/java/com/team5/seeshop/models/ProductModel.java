@@ -14,7 +14,7 @@ public class ProductModel implements Serializable {
 
     float rating;
 
-
+    List<RatingModel>ratingModelList;
 
     List<String> images;
 
@@ -99,5 +99,13 @@ public class ProductModel implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public List<RatingModel> getRatingModelList() {
+        return ratingModelList;
+    }
+
+    public void setRatingModelList(List<RatingModel> ratingModelList) {
+        this.ratingModelList = ratingModelList;
     }
 }
