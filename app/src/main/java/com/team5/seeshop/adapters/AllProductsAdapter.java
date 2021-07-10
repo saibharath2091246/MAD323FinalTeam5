@@ -24,13 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.team5.seeshop.R;
-import com.team5.seeshop.customer.CartActivity;
 import com.team5.seeshop.customer.ProductDetailsActivity;
 import com.team5.seeshop.models.CartModel;
 import com.team5.seeshop.models.ProductModel;
 import com.team5.seeshop.utils.ConstantStrings;
 
 import java.util.List;
+
+import static com.team5.seeshop.customer.CustomerDashboardActivity.home_cart_tv;
 
 public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder> {
 
@@ -40,10 +41,13 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public DatabaseReference databaseReference ;
     SharedPreferences sharedPref;
 
+    int valOfCart=0;
+    int intentVal;
 
-    public AllProductsAdapter(List<ProductModel> productModelList, Context context) {
+    public AllProductsAdapter(List<ProductModel> productModelList, Context context, int intentVal) {
         this.productModelList = productModelList;
         this.context = context;
+        this.intentVal = intentVal;
     }
 
     @NonNull
@@ -64,30 +68,41 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public void onBindViewHolder(@NonNull AllProductsAdapter.ViewHolder holder, int position) {
         sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
 
-         holder.title_tv.setText(productModelList.get(position).getTitle());
+        holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
+
+        if (intentVal==2)
+        {
+            holder.add_to_cart_btn.setVisibility(View.GONE);
+        }
 
         if (productModelList.get(position).getImages().size()>0)
         {
 
             Picasso.get().load(productModelList.get(position).getImages().get(0)).into(holder.image_iv);
         }
-        holder.add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addToCartProduct(position);
-            }
-        });
+
+
+        if (intentVal==1) {
+            valOfCart = Integer.parseInt(home_cart_tv.getText().toString());
+            holder.add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addToCartProduct(position);
+                }
+            });
+        }
 
 
 
 
-holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra(ConstantStrings.PRODUCT_ITEM,productModelList.get(position));
+                intent.putExtra("intentVal",intentVal);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -102,7 +117,7 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv;
+        public TextView title_tv,price_tv;
         public Button add_to_cart_btn;
         ImageView image_iv;
         LinearLayout layout;
@@ -143,12 +158,10 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
+                                    valOfCart=valOfCart+1;
+                                    home_cart_tv.setText("("+valOfCart+"");
                                     Toast.makeText(context,"Product added to cart", Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(context, CartActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.putExtra("cart_intent",1);
-                                    context.startActivity(intent);
                                 }
                             });
                         }
@@ -162,7 +175,7 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
                     }});
     }
 
-     public void filterList(List<ProductModel> filterllist) {
+    public void filterList(List<ProductModel> filterllist) {
 
         productModelList = filterllist;
         notifyDataSetChanged();

@@ -23,8 +23,12 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apple"
-            android:id="@+id/apple_cb"/>
+            android:text="All"
+            android:id="@+id/all_cb"/> <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apple"
+        android:id="@+id/apple_cb"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +53,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:orientation="vertical"
+        android:orientation="vertical"
         android:layout_margin="@dimen/_10dp"
         >
         <TextView
@@ -160,7 +164,7 @@ android:orientation="vertical"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="Apply"
-         android:background="@drawable/solid_bg_app_color_round_corner"
+        android:background="@drawable/solid_bg_app_color_round_corner"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="@dimen/_20dp"

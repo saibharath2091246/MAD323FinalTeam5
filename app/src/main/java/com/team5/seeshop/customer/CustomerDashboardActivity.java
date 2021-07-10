@@ -79,6 +79,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     AllProductsAdapter adapter;
     List<String> bannerImages;
     String apple="Apple";
+    String all="a";
     String hp="HP";
     String dell="Dell";
     String lenovo="Lenovo";
@@ -227,6 +228,16 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         drawer.closeDrawer(START);
                         break;
 
+                    case R.id.nav_my_orders:
+                        Intent nav_my_orders = new Intent(getApplicationContext(), MyOrdersActivity.class);
+                        nav_my_orders.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(nav_my_orders);
+                        drawer.closeDrawer(START);
+                        break;
+
+
+
                     case R.id.nav_logout:
                         mAuth.signOut();
                         SharedPreferences preferences =getSharedPreferences(ConstantStrings.SEESHOP_PREFS, Context.MODE_PRIVATE);
@@ -237,6 +248,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         Intent intent = new Intent(CustomerDashboardActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        finish();
 
                         drawer.closeDrawer(START);
                         break;
@@ -270,7 +282,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         {
                             ProductModel productModel2 = productDs.getValue(ProductModel.class);
                             productModelList.add(productModel2);
-                            adapter = new AllProductsAdapter(productModelList, CustomerDashboardActivity.this);
+                            adapter = new AllProductsAdapter(productModelList, CustomerDashboardActivity.this,1);
                             recyclerView.setHasFixedSize(true);
                             recyclerView.setLayoutManager(new GridLayoutManager(CustomerDashboardActivity.this,2));
                             recyclerView.setAdapter(adapter);
@@ -303,6 +315,12 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         dell_val=0;
         lenovo_val=0;
 
+        apple="";
+        hp="";
+        dell="";
+        lenovo="";
+        all="";
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CustomerDashboardActivity.this);
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.filter_layout, null);
@@ -312,30 +330,50 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         CheckBox dell_cb = dialogView.findViewById(R.id.dell_cb);
         CheckBox hp_cb = dialogView.findViewById(R.id.hp_cb);
         CheckBox lenovo_cb = dialogView.findViewById(R.id.lenovo_cb);
+        CheckBox all_cb = dialogView.findViewById(R.id.all_cb);
 
         EditText min_et = dialogView.findViewById(R.id.min_et);
         EditText max_et = dialogView.findViewById(R.id.max_et);
 
-        apple_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        all_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                {
+
+                    all="All";
+                }else {
+
+                    all="a";
+
+                }
+            }
+        });  apple_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b)
                 {
                     apple_val=1;
+                    apple="Apple";
                 }else {
                     apple_val=0;
+                    apple="aa";
 
                 }
             }
-        }); dell_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        });
+
+        dell_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b)
                 {
                     dell_val=1;
+                    dell="Dell";
 
                 }else {
                     dell_val=0;
+                    dell="dd";
 
                 }
             }
@@ -348,37 +386,49 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                 {
                     hp_val=1;
 
+                    hp="HP";
+
                 }else {
                     hp_val=0;
+                    hp="";
 
                 }
             }
-        });   lenovo_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        });
+
+        lenovo_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b)
                 {
                     lenovo_val=1;
+                    lenovo="Lenovo";
 
                 }else {
                     lenovo_val=0;
+                    lenovo="";
 
                 }
             }
         });
 
 
-
         Button apply_btn = dialogView.findViewById(R.id.apply_btn);
         AlertDialog alertDialog = dialogBuilder.create();
+
 
         apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<ProductModel> filtered = new ArrayList<>();
                 for (ProductModel productModel : productModelList) {
+                    int price = productModel.getPrice();
+                    if (all.contentEquals("All") )
+                    {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        adapter.filterList(productModelList);
 
-                    if (apple_val==1 && apple.equals(productModel.getBrand()) )
+                    } if (productModel.getBrand().contentEquals(apple) )
                     {
                         recyclerView.setVisibility(View.VISIBLE);
                         filtered.add(productModel);
@@ -387,7 +437,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
                     }
 
-                    else if(dell_val==1 && dell.equals(productModel.getBrand()) )
+                    else  if(productModel.getBrand().contentEquals(dell)  )
                     {
                         recyclerView.setVisibility(View.VISIBLE);
                         filtered.add(productModel);
@@ -395,7 +445,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         Toast.makeText(CustomerDashboardActivity.this, "Product found", Toast.LENGTH_SHORT).show();
 
                     }
-                    else   if(hp_val==1 && hp.equals(productModel.getBrand()))
+                    else if(hp_val==1 && hp.contentEquals(productModel.getBrand()))
                     {
                         recyclerView.setVisibility(View.VISIBLE);
                         filtered.add(productModel);
@@ -403,30 +453,31 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         Toast.makeText(CustomerDashboardActivity.this, "Product found", Toast.LENGTH_SHORT).show();
 
                     }
-                    else if (lenovo_val==1 && lenovo.equals(productModel.getBrand())) {
+                    else if (lenovo_val==1 && lenovo.contentEquals(productModel.getBrand())) {
                         recyclerView.setVisibility(View.VISIBLE);
                         filtered.add(productModel);
                         adapter.filterList(filtered);
                         Toast.makeText(CustomerDashboardActivity.this, "Product found", Toast.LENGTH_SHORT).show();
 
                     }
-                    else  if (!min_et.getText().toString().isEmpty() && !max_et.getText().toString().isEmpty()) {
-                        int price = productModel.getPrice();
+                    else if (!min_et.getText().toString().isEmpty() && !max_et.getText().toString().isEmpty()) {
+
                         if (price >= Integer.parseInt(min_et.getText().toString()) && price <= Integer.parseInt(max_et.getText().toString())) {
+                            recyclerView.setVisibility(View.VISIBLE);
                             filtered.add(productModel);
                             adapter.filterList(filtered);
-                            recyclerView.setVisibility(View.VISIBLE);
+
                             Toast.makeText(CustomerDashboardActivity.this, "Product found", Toast.LENGTH_SHORT).show();
 
-                        } else {
+                        } /*else {
                             recyclerView.setVisibility(View.GONE);
                             Toast.makeText(CustomerDashboardActivity.this, "Product not found", Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
 
-                    }else {
-                        recyclerView.setVisibility(View.GONE);
-                        Toast.makeText(CustomerDashboardActivity.this, "Product not found", Toast.LENGTH_SHORT).show();
-                    }
+                    }/*else {
+                             recyclerView.setVisibility(View.GONE);
+                             Toast.makeText(CustomerDashboardActivity.this, "Product not found", Toast.LENGTH_SHORT).show();
+                         }*/
                 }
 
                 alertDialog.dismiss();
@@ -436,5 +487,12 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         });
 
         alertDialog.show();
+    }
+
+    public void openCart(View view) {
+        Intent intent = new Intent(CustomerDashboardActivity.this, CartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("cart_intent",2);
+        startActivity(intent);
     }
 }

@@ -58,12 +58,36 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <FrameLayout
-            android:id="@+id/studentDashboard_frame"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/sellerDashboard_frame"
+                >
+
+
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:layout_margin="@dimen/_20dp"
+                    android:id="@+id/recyclerView"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
