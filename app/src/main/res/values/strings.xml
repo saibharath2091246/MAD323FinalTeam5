@@ -3,7 +3,8 @@
     <string name="login">Login</string>
     <string name="welcome_to_seeshop">Welcome to SeeShop</string>
     <string name="password">Password</string>
-
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string-array name="brand">
 
         <item>Apple</item>
