@@ -23,6 +23,8 @@ import com.team5.seeshop.utils.ConstantStrings;
 
 import java.util.List;
 
+import static com.team5.seeshop.customer.CartActivity.cart_main_layout;
+import static com.team5.seeshop.customer.CartActivity.no_cart_tv;
 import static com.team5.seeshop.customer.CartActivity.total_items_tv;
 import static com.team5.seeshop.customer.CustomerDashboardActivity.home_cart_tv;
 
@@ -54,7 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.ViewHolder holder, int position) {
 
-         holder.title_tv.setText(productModelList.get(position).getTitle());
+        holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
 
         holder.quantity_tv.setText(""+productModelList.get(position).getQuantity());
@@ -68,7 +70,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             CartActivity.total_price_tv.setText("$"+getTotalAmount());
 
             total_items_tv.setText("("+ productModelList.size() +" items )");
-            home_cart_tv.setText("("+ productModelList.size() +" items )");
+            home_cart_tv.setText("("+ productModelList.size());
+        }else {
+            no_cart_tv.setVisibility(View.VISIBLE);
+            cart_main_layout.setVisibility(View.GONE);
         }
         holder.remove_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,17 +87,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             public void onClick(View v) {
 
 
-                    productModelList.get(position).setQuantity(productModelList.get(position).getQuantity() + 1);
+                productModelList.get(position).setQuantity(productModelList.get(position).getQuantity() + 1);
 
-                    notifyDataSetChanged();
+                notifyDataSetChanged();
 
 
-                    holder.quantity_tv.setText(String.valueOf(productModelList.get(position).getQuantity()));
-                    updateUnitInFirebase(position);
+                holder.quantity_tv.setText(String.valueOf(productModelList.get(position).getQuantity()));
+                updateUnitInFirebase(position);
 
-                    int price = Integer.valueOf(productModelList.get(position).getPrice()) * productModelList.get(position).getQuantity();
+                int price = Integer.valueOf(productModelList.get(position).getPrice()) * productModelList.get(position).getQuantity();
 
-                    holder.sale_price_tv.setText("$"+price);
+                holder.sale_price_tv.setText("$"+price);
 
 
             }
@@ -130,24 +135,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv,quantity_tv,sale_price_tv;
+        public TextView title_tv,price_tv,quantity_tv,sale_price_tv;
         public Button inc_btn,dec_btn,remove_btn;
-         public ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-             title_tv = (TextView) itemView.findViewById(R.id.title_tv);
+            title_tv = (TextView) itemView.findViewById(R.id.title_tv);
             price_tv = (TextView) itemView.findViewById(R.id.price_tv);
-             quantity_tv = (TextView) itemView.findViewById(R.id.quantity_tv);
-             sale_price_tv = (TextView) itemView.findViewById(R.id.sale_price_tv);
+            quantity_tv = (TextView) itemView.findViewById(R.id.quantity_tv);
+            sale_price_tv = (TextView) itemView.findViewById(R.id.sale_price_tv);
             inc_btn =  itemView.findViewById(R.id.inc_btn);
-             dec_btn =  itemView.findViewById(R.id.dec_btn);
-             remove_btn =  itemView.findViewById(R.id.remove_btn);
+            dec_btn =  itemView.findViewById(R.id.dec_btn);
+            remove_btn =  itemView.findViewById(R.id.remove_btn);
 
 
         }
     }
 
 
-     private void removeProduct(int position,ViewHolder viewHolder)
+    private void removeProduct(int position,ViewHolder viewHolder)
     {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -160,7 +165,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         productModelList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, productModelList.size());
-
+        if (productModelList.size()==0)
+        {
+            cart_main_layout.setVisibility(View.GONE);
+            no_cart_tv.setVisibility(View.VISIBLE);
+        }
+        home_cart_tv.setText("("+ productModelList.size());
 
 
     }

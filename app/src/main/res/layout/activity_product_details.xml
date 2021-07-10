@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".customer.ProductDetailsActivity"><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".customer.ProductDetailsActivity"><RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -171,18 +169,17 @@
 
     <Button
         android:id="@+id/add_to_cart_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_30dp"
-        android:text="Add to cart"
-        android:textColor="@color/white"
-        android:padding="@dimen/_7dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/data_layout"
-        android:textSize="12sp"
-        android:textAllCaps="false"
-        android:layout_marginTop="@dimen/_30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:background="@drawable/solid_bg_app_color_round_corner"
-        />
+        android:padding="@dimen/_7dp"
+        android:text="Add to cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

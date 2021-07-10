@@ -39,13 +39,13 @@ public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SharedPreferences sharedPref;
-    public static TextView total_amount_tv,total_items_tv,sub_total_tv,total_price_tv;
-    RelativeLayout cart_main_layout;
+    public static TextView total_amount_tv,total_items_tv,sub_total_tv,total_price_tv,no_cart_tv;
+    public static RelativeLayout cart_main_layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
 
         databaseReference = mDatabase.getReference(ConstantStrings.CART).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
@@ -56,6 +56,7 @@ public class CartActivity extends AppCompatActivity {
         cart_main_layout = findViewById(R.id.cart_main_layout);
         progressBar = findViewById(R.id.progressBar);
         recyclerView=findViewById(R.id.recyclerView);
+        no_cart_tv=findViewById(R.id.no_cart_tv);
         productModelList=new ArrayList<>();
         getCartData();
 
@@ -70,7 +71,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-
+                    no_cart_tv.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     cart_main_layout.setVisibility(View.VISIBLE);
                     for (DataSnapshot productDs : dataSnapshot.getChildren())
@@ -92,15 +93,18 @@ public class CartActivity extends AppCompatActivity {
 
                 }
                 else {
+                    no_cart_tv.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     cart_main_layout.setVisibility(View.GONE);
-                    Toast.makeText(CartActivity.this, "No items found.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(CartActivity.this, "No items found.", Toast.LENGTH_SHORT).show();
 
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
+                cart_main_layout.setVisibility(View.GONE);
+                no_cart_tv.setVisibility(View.GONE);
             }
         });
 
@@ -120,7 +124,6 @@ public class CartActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

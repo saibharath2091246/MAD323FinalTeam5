@@ -12,11 +12,18 @@
         <activity android:name=".seller.SellerOrdersActivity"></activity>
         <activity android:name=".customer.CustomerOrderDetailsActivity" />
         <activity android:name=".admin.AdminAllProductsActivity" />
-        <activity android:name=".customer.MyOrdersActivity" />
+        <activity android:name=".customer.MyOrdersActivity"
+            android:label="My Orders"
+            android:parentActivityName=".customer.CustomerDashboardActivity"
+            />
         <activity android:name=".customer.OrderPlacedActivity" />
         <activity android:name=".customer.CheckoutActivity" />
-        <activity android:name=".customer.CartActivity" />
-        <activity android:name=".customer.ProductDetailsActivity" />
+        <activity android:name=".customer.CartActivity"
+            android:label="Cart"
+            android:parentActivityName=".customer.CustomerDashboardActivity"
+            />
+        <activity android:name=".customer.ProductDetailsActivity"
+            android:parentActivityName=".customer.CustomerDashboardActivity"/>
         <activity android:name=".customer.CustomerDashboardActivity" />
         <activity android:name=".seller.ManageProductsActivity" />
         <activity android:name=".seller.AddProductsActivity" />
