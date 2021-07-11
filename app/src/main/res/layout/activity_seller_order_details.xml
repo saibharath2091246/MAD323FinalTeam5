@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".customer.CustomerOrderDetailsActivity">
+    tools:context=".seller.SellerOrderDetailsActivity">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -118,6 +118,33 @@
         android:scrollbars="vertical"
         android:layout_margin="@dimen/_20dp"
         android:layout_below="@+id/view"
-        android:layout_above="@+id/update_status_btn"
+        android:layout_above="@+id/status_check_tv"
         android:id="@+id/recyclerView"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_check_tv"
+
+        android:textAlignment="center"
+        android:textSize="@dimen/_16sp"
+        android:layout_above="@+id/update_status_btn"
+        android:textColor="@color/app_color"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        />
+    <Button
+        android:id="@+id/update_status_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Update Status"
+        android:onClick="updateStatus"
+        android:background="@drawable/solid_bg_app_color_round_corner"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        />
+
+
 </RelativeLayout>

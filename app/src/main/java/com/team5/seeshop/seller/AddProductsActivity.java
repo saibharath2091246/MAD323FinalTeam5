@@ -435,8 +435,14 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
                     /*----- Image loading library from internet ----------------------*/
-                    Picasso.get().load(productModel.getImages().get(0)).into(image1_iv);
-                    Picasso.get().load(productModel.getImages().get(1)).into(image2_iv);
+
+                    if(indexExists(productModel.getImages(),0)){
+                        Picasso.get().load(productModel.getImages().get(0)).into(image1_iv);
+                    }else if(indexExists(productModel.getImages(),1)){
+                        Picasso.get().load(productModel.getImages().get(1)).into(image2_iv);
+                    }
+
+
                 }
 
 
@@ -445,6 +451,11 @@ public class AddProductsActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+
+    public boolean indexExists(final List list, final int index) {
+        return index >= 0 && index < list.size();
     }
 
 
@@ -483,6 +494,7 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
     }
+
 
 
 

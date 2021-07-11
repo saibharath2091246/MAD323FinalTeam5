@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,7 @@ public class ManageProductsActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     RecyclerView recyclerView;
+    TextView no_found_tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class ManageProductsActivity extends AppCompatActivity {
 
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
         databaseReference = mDatabase.getReference(ConstantStrings.PRODUCTS).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
+        no_found_tv = findViewById(R.id.no_found_tv);
         progressBar = findViewById(R.id.progressBar);
         recyclerView=findViewById(R.id.recyclerView);
         productModelList=new ArrayList<>();
@@ -71,7 +74,8 @@ public class ManageProductsActivity extends AppCompatActivity {
 
 
                     progressBar.setVisibility(View.GONE);
-
+                    no_found_tv.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     for (DataSnapshot ds: dataSnapshot.getChildren())
                     {
                         ProductModel productModel2 = ds.getValue(ProductModel.class);
@@ -100,6 +104,7 @@ public class ManageProductsActivity extends AppCompatActivity {
                             recyclerView.setAdapter(adapter);
 
 
+
                         }
                     }
 
@@ -109,6 +114,10 @@ public class ManageProductsActivity extends AppCompatActivity {
 
 
 
+                }else {
+                    no_found_tv.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 

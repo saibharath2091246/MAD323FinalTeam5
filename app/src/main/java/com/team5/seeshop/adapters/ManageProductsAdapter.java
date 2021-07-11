@@ -51,7 +51,7 @@ public class ManageProductsAdapter extends RecyclerView.Adapter<ManageProductsAd
     @Override
     public void onBindViewHolder(@NonNull ManageProductsAdapter.ViewHolder holder, int position) {
 
-         holder.title_tv.setText(productModelList.get(position).getTitle());
+        holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
 
         if (productModelList.get(position).getImages().size()>0)
@@ -67,7 +67,7 @@ public class ManageProductsAdapter extends RecyclerView.Adapter<ManageProductsAd
         });
 
 
-holder.edit_ib.setOnClickListener(new View.OnClickListener() {
+        holder.edit_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -87,7 +87,7 @@ holder.edit_ib.setOnClickListener(new View.OnClickListener() {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv;
+        public TextView title_tv,price_tv;
         public ImageButton delete_ib,edit_ib;
         ImageView image_iv;
         public ViewHolder(View itemView) {
@@ -105,7 +105,7 @@ holder.edit_ib.setOnClickListener(new View.OnClickListener() {
 
     private void removeProducts(int position,ViewHolder viewHolder)
     {
-         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabaseRef = database.getReference()
                 .child(ConstantStrings.PRODUCTS)
                 .child(productModelList.get(position).getSeller_id()).child(productModelList.get(position).getProduct_id());
