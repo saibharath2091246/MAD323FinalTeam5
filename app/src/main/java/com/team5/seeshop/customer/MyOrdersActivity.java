@@ -40,7 +40,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
 
-        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
 
         databaseReference = mDatabase.getReference(ConstantStrings.ORDERS).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));

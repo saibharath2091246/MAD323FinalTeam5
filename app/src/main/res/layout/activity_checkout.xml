@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
 
-                        android:inputType="number"
+                        android:inputType="text"
                         android:padding="@dimen/_10dp"
 
                         android:textColorHint="#BFBFBF" />

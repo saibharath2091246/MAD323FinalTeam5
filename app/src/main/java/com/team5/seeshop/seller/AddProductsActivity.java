@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,17 +49,16 @@ import java.util.UUID;
 
 public class AddProductsActivity extends AppCompatActivity {
 
+
     private static final int PICK_IMAGE_ID = 101;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 7;
     private static final int PICKER_REQUEST_CODE = 100;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseRef;
     SharedPreferences sharedPref;
-
     ProgressBar progressBar;
-
     List<String> imagesList;
-
     ProductModel productModel;
 
     AppCompatSpinner spinner;
@@ -67,6 +67,7 @@ public class AddProductsActivity extends AppCompatActivity {
     LinearLayout image_choose_layout,images_layout;
     ImageView image1_iv,image2_iv;
     Button add_btn;
+
     private String brand_name;
 
     int product_enable=0;
@@ -90,13 +91,18 @@ public class AddProductsActivity extends AppCompatActivity {
             checkAndRequestPermissions();
 
         }
+
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         intentUpdate = getIntent();
 
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
+
         mDatabaseRef = database.getReference("products").child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
+
+
+        /*Views*/
         progressBar = findViewById(R.id.progressBar);
         spinner = findViewById(R.id.brand_spinner);
         title_et = findViewById(R.id.title_et);
@@ -109,6 +115,7 @@ public class AddProductsActivity extends AppCompatActivity {
         image1_iv = findViewById(R.id.image1_iv);
         image2_iv = findViewById(R.id.image2_iv);
         add_btn = findViewById(R.id.add_btn);
+
         imagesList = new ArrayList<>();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -146,11 +153,27 @@ public class AddProductsActivity extends AppCompatActivity {
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (intentUpdate.hasExtra(ConstantStrings.PRODUCT_ITEM))
+
+                if (TextUtils.isEmpty(title_et.getText().toString())
+                        || TextUtils.isEmpty(price_et.getText().toString())
+                        || TextUtils.isEmpty(quantity_et.getText().toString())
+                        || TextUtils.isEmpty(description_et.getText().toString())
+
+                )
                 {
-                    updateDataToFirebase();
-                }else {
-                    saveDataToFirebase();
+                    Toast.makeText(AddProductsActivity.this, "All Fields Required", Toast.LENGTH_SHORT).show();
+                }
+                else if (imagesList.size()<2)
+                {
+                    Toast.makeText(AddProductsActivity.this, "Choose 2 Images!", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    if (intentUpdate.hasExtra(ConstantStrings.PRODUCT_ITEM)) {
+                        updateDataToFirebase();
+                    } else {
+                        saveDataToFirebase();
+                    }
                 }
 
             }
@@ -177,11 +200,7 @@ public class AddProductsActivity extends AppCompatActivity {
 
     private void saveDataToFirebase() {
 
-        //  mDatabaseRef = database.getReference(ConstantStrings.MY_FRUITS_AND_VEGETABLES_DATA).child(sharedPref.getString(ConstantStrings.MOBILE_NUMBER_KEY,"null"));
-
-
         productModel= new ProductModel();
-
 
         productModel.setTitle(title_et.getText().toString());
         productModel.setPrice(Integer.parseInt(price_et.getText().toString()));
@@ -189,7 +208,7 @@ public class AddProductsActivity extends AppCompatActivity {
         productModel.setDescription(description_et.getText().toString());
         productModel.setBrand(brand_name);
         productModel.setProduct_enable(product_enable);
-        productModel.setRating(0);
+
 
 
         if (imagesList.size()>0)
@@ -202,12 +221,12 @@ public class AddProductsActivity extends AppCompatActivity {
 
         productModel.setSeller_id(sharedPref.getString(ConstantStrings.USER_ID,"0"));
         productModel.setProduct_id(_id);
+
         mDatabaseRef.child(_id).setValue(productModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
                 Toast.makeText(AddProductsActivity.this, "Your "+ title_et.getText().toString() +" Successfully added ", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(AddProductsActivity.this, ManageProductsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -237,11 +256,7 @@ public class AddProductsActivity extends AppCompatActivity {
             case PICK_IMAGE_ID:
                 bitmap = ImagePicker.getImageFromResult(AddProductsActivity.this, resultCode, data);
 
-                // Log.e("ImagePath",new File(data.toString()).getAbsolutePath());
-                if (requestCode == PICK_IMAGE_ID
-                        && resultCode == RESULT_OK
-                        && data != null
-                        && data.getData() != null) {
+                if (requestCode == PICK_IMAGE_ID && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
                     image_count=image_count+1;
                     // Get the Uri of data
@@ -252,17 +267,18 @@ public class AddProductsActivity extends AppCompatActivity {
 
                         if (bitmap!=null) {
 
-                            //uploadImage();
-                            //  alertConfirmUpload();
+
                             images_layout.setVisibility(View.VISIBLE);
                             if (image_count==1){
                                 uploadImage();
+                                /*-- Previews Imageviews*/
                                 image1_iv.setImageBitmap(bitmap);
 
                             }
                             if (image_count==2)
                             {
                                 uploadImage();
+                                /*-- Previews Imageviews*/
                                 image2_iv.setImageBitmap(bitmap);
                             }
 
@@ -284,6 +300,7 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
 
+    /*--Runtime permissions -- */
     private boolean checkAndRequestPermissions() {
         int camera = ContextCompat.checkSelfPermission(AddProductsActivity.this,
                 Manifest.permission.CAMERA);
@@ -307,7 +324,7 @@ public class AddProductsActivity extends AppCompatActivity {
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////
+    //////////-- to upload image to Firebase Storage section ----///
     private void uploadImage()
     {
         if (filePath != null) {
@@ -337,7 +354,6 @@ public class AddProductsActivity extends AppCompatActivity {
 
                                             imagesList.add(uploadUrl.toString());
 
-                                            //  mDatabaseRef.child(userModel.getUser_id()).child("profile_image").setValue(downloadUrl.toString());
 
                                         }
 
@@ -467,4 +483,8 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 }
