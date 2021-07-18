@@ -438,7 +438,9 @@ public class AddProductsActivity extends AppCompatActivity {
 
                     if(indexExists(productModel.getImages(),0)){
                         Picasso.get().load(productModel.getImages().get(0)).into(image1_iv);
-                    }else if(indexExists(productModel.getImages(),1)){
+                    }
+
+                    if(indexExists(productModel.getImages(),1)){
                         Picasso.get().load(productModel.getImages().get(1)).into(image2_iv);
                     }
 

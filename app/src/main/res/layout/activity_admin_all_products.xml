@@ -16,7 +16,24 @@
             android:id="@+id/progressBar"
             android:visibility="gone"
             android:layout_centerInParent="true"
-            />
+            />     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_found_tv"
+        android:visibility="gone"
+        android:text="This Seller added no product."
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/_18sp"
+        />
+
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/all_cb"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
@@ -25,6 +42,7 @@
             android:layout_marginTop="@dimen/_20dp"
             android:layout_marginBottom="@dimen/_20dp"
             android:layout_height="wrap_content"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

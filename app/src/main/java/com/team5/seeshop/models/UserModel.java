@@ -4,7 +4,7 @@ public class UserModel {
 
     private String user_id,user_name,user_email,user_company,user_password,user_type;
 
-   private int user_enable;
+    private int user_enable;
 
     public String getUser_id() {
         return user_id;
@@ -60,5 +60,10 @@ public class UserModel {
 
     public void setUser_enable(int user_enable) {
         this.user_enable = user_enable;
+    }
+
+    @Override
+    public String toString() {
+        return user_name;
     }
 }

@@ -110,7 +110,10 @@ public class ManageProductsAdapter extends RecyclerView.Adapter<ManageProductsAd
                 .child(ConstantStrings.PRODUCTS)
                 .child(productModelList.get(position).getSeller_id()).child(productModelList.get(position).getProduct_id());
         mDatabaseRef.removeValue();
+        productModelList.remove(position);
+        this.notifyItemRemoved(position);
         viewHolder.itemView.setVisibility(View.GONE);
         Toast.makeText(context, "Product has been deleted!", Toast.LENGTH_SHORT).show();
+
     }
 }

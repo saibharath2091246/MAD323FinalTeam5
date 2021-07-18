@@ -346,7 +346,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose at least 2 images"
+                android:text="Choose 2 images"
                 android:textColor="@color/teal_200"
                 android:layout_marginLeft="@dimen/_30dp"
                 />

@@ -11,8 +11,11 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +47,11 @@ public class AdminAllProductsActivity extends AppCompatActivity {
     List<UserModel>seller_list;
     Spinner spinner;
     int check = 0;
+
+    TextView no_found_tv;
+    CheckBox all_cb;
+
+    String all="a";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +62,36 @@ public class AdminAllProductsActivity extends AppCompatActivity {
         databaseReference = mDatabase.getReference(ConstantStrings.PRODUCTS);
         progressBar = findViewById(R.id.progressBar);
         recyclerView=findViewById(R.id.recyclerView);
+        no_found_tv=findViewById(R.id.no_found_tv);
         spinner=findViewById(R.id.spinner);
+
+        all_cb =  findViewById(R.id.all_cb);
+
         productModelList=new ArrayList<>();
         seller_list=new ArrayList<>();
         getSellersData();
         getProductData();
+
+        all_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                {
+
+                    all="All";
+
+                    recyclerView.setVisibility(View.VISIBLE);
+                    no_found_tv.setVisibility(View.GONE);
+                    adapter.filterList(productModelList);
+                    adapter.notifyDataSetChanged();
+                    all_cb.setChecked(false);
+                }else {
+
+                    all="a";
+
+                }
+            }
+        });
 
         spinner.setSelection(Adapter.NO_SELECTION, true);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -71,6 +104,7 @@ public class AdminAllProductsActivity extends AppCompatActivity {
 
 
                     getProductBysellerData(userModel.getUser_id());
+
                 }
 
                 /*adapter.getFilter().filter(userModel.getUser_id(), new Filter.FilterListener() {
@@ -149,12 +183,19 @@ public class AdminAllProductsActivity extends AppCompatActivity {
                 }
                 else {
                     progressBar.setVisibility(View.GONE);
+                    Toast.makeText(AdminAllProductsActivity.this, "No products Found.", Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.GONE);
+
 
                 }
+
+                all_cb.setChecked(false);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
+                Toast.makeText(AdminAllProductsActivity.this, "No products Found.", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -182,6 +223,7 @@ public class AdminAllProductsActivity extends AppCompatActivity {
 
                     List<ProductModel>productModelList1=new ArrayList<>();
                     progressBar.setVisibility(View.GONE);
+                    no_found_tv.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
 
 
@@ -202,13 +244,18 @@ public class AdminAllProductsActivity extends AppCompatActivity {
 
 
                 }else {
+                    progressBar.setVisibility(View.GONE);
+
                     recyclerView.setVisibility(View.GONE);
-                    Toast.makeText(AdminAllProductsActivity.this, "No products Found.", Toast.LENGTH_SHORT).show();
+                    no_found_tv.setVisibility(View.VISIBLE);
+
+                    // Toast.makeText(AdminAllProductsActivity.this, "No products Found.", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
+                no_found_tv.setVisibility(View.VISIBLE);
             }
         });
 
@@ -235,6 +282,8 @@ public class AdminAllProductsActivity extends AppCompatActivity {
 
                         if (userModel2.getUser_type().equals("seller"))
                         {
+
+
 
                             userModel.setUser_name(userModel2.getUser_name());
                             userModel.setUser_id(userModel2.getUser_id());

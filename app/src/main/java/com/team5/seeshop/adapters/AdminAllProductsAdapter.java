@@ -58,7 +58,7 @@ public class AdminAllProductsAdapter extends RecyclerView.Adapter<AdminAllProduc
     public void onBindViewHolder(@NonNull AdminAllProductsAdapter.ViewHolder holder, int position) {
         sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
 
-         holder.title_tv.setText(productModelList.get(position).getTitle());
+        holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
 
         if (productModelList.get(position).getImages() !=null && productModelList.get(position).getImages().size()>0)
@@ -84,9 +84,9 @@ public class AdminAllProductsAdapter extends RecyclerView.Adapter<AdminAllProduc
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv,seller_name_tv;
-         ImageView image_iv;
-         public ViewHolder(View itemView) {
+        public TextView title_tv,price_tv,seller_name_tv;
+        ImageView image_iv;
+        public ViewHolder(View itemView) {
             super(itemView);
             image_iv =  itemView.findViewById(R.id.image_iv);
             title_tv = (TextView) itemView.findViewById(R.id.title_tv);
@@ -98,7 +98,7 @@ public class AdminAllProductsAdapter extends RecyclerView.Adapter<AdminAllProduc
     }
 
 
-      public void filterList(List<ProductModel> filterllist) {
+    public void filterList(List<ProductModel> filterllist) {
         productModelList = filterllist;
         notifyDataSetChanged();
     }

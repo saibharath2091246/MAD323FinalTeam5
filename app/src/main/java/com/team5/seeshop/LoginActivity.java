@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     public FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public DatabaseReference databaseReference = mDatabase.getReference().child(ConstantStrings.USERS_TABLE_KEY);
     LinearLayout customer_layout,seller_layout;
+    int IS_SELLER=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,16 +96,28 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putString(ConstantStrings.USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             editor.putString(ConstantStrings.USER_NAME, user.getUser_name());
                                             editor.apply();
-                                            Toast.makeText(LoginActivity.this, "Login Successful "  , Toast.LENGTH_SHORT).show();
 
                                             if (user.getUser_type().equals("seller")) {
-                                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                                startActivity(intent);
-                                                finish();
+                                                if (IS_SELLER==1) {
+                                                    Toast.makeText(LoginActivity.this, "Login Successful "  , Toast.LENGTH_SHORT).show();
+
+                                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }else{
+                                                    Toast.makeText(LoginActivity.this, "Open Seller Login Panel.", Toast.LENGTH_SHORT).show();
+                                                }
                                             }else {
-                                                Intent intent = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
-                                                startActivity(intent);
-                                                finish();
+                                                if (IS_SELLER==0) {
+                                                    Toast.makeText(LoginActivity.this, "Login Successful "  , Toast.LENGTH_SHORT).show();
+
+                                                    Intent intent = new Intent(LoginActivity.this, CustomerDashboardActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }else {
+                                                    Toast.makeText(LoginActivity.this, "Open Customer Login Panel.", Toast.LENGTH_SHORT).show();
+
+                                                }
                                             }
                                         }else {
                                             Toast.makeText(LoginActivity.this, "your account is not enabled", Toast.LENGTH_SHORT).show();
@@ -172,6 +185,7 @@ public class LoginActivity extends AppCompatActivity {
         seller_layout.setBackgroundColor(getResources().getColor(R.color.app_color));
         email_et.setText("");
         password_et.setText("");
+        IS_SELLER=1;
 
 
     }
@@ -181,6 +195,6 @@ public class LoginActivity extends AppCompatActivity {
         seller_layout.setBackgroundColor(getResources().getColor(R.color.lightappcolor));
         email_et.setText("");
         password_et.setText("");
+        IS_SELLER=0;
     }
-
 }
