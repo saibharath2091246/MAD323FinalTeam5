@@ -29,6 +29,8 @@ public class ConstantStrings {
     public static final String PRODUCT_ITEM = "product_item";
 
 
+    public static final String REPAIR_REQUEST = "repair_request";
+
 
     public static  String CURRENT_LOCALITY = "";
 

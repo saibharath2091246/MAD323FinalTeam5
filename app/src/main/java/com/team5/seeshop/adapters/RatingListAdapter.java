@@ -57,7 +57,7 @@ public class RatingListAdapter extends RecyclerView.Adapter<RatingListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.collegeproj.seeshop.adapters.RatingListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RatingListAdapter.ViewHolder holder, int position) {
         sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
 
          holder.title_tv.setText(productModelList.get(position).getTitle());

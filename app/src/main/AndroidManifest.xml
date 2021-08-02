@@ -21,15 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
-        <activity android:name=".seller.SellerOrderDetailsActivity"
-            android:parentActivityName=".seller.SellerOrdersActivity"
-            />
-        <activity android:name=".seller.SellerOrdersActivity"
-            android:parentActivityName=".HomeActivity"
-            />
-        <activity android:name=".customer.CustomerOrderDetailsActivity"
-            android:parentActivityName=".customer.MyOrdersActivity"
-            />
+        <activity android:name=".customer.RepairRequestDetailsActivity"></activity>
+        <activity
+            android:name=".seller.SellerOrderDetailsActivity"
+            android:parentActivityName=".seller.SellerOrdersActivity" />
+        <activity
+            android:name=".seller.SellerOrdersActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".customer.CustomerOrderDetailsActivity"
+            android:parentActivityName=".customer.MyOrdersActivity" />
         <activity android:name=".admin.AdminAllProductsActivity" />
         <activity
             android:name=".customer.MyOrdersActivity"
