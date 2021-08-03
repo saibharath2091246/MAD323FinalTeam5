@@ -197,4 +197,10 @@ public class LoginActivity extends AppCompatActivity {
         password_et.setText("");
         IS_SELLER=0;
     }
+
+    public void openForgotPwd(View view) {
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

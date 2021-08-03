@@ -175,6 +175,18 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/forgot_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_color"
+            android:text="forgot password"
+            android:background="@android:color/transparent"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:onClick="openForgotPwd"
+            />
         <Button
             android:id="@+id/login_btn"
             android:layout_width="200dp"
