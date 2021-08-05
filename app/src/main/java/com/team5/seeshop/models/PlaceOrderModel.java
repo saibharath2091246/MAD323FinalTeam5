@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlaceOrderModel implements Serializable {
 
-    private String id, order_id,user_id,total_amount,order_date,order_time,order_status;
+    private String id, order_id,user_id,user_name,total_amount,order_date,order_time,order_status;
     private List<CartModel> cartItems;
 
     List<String>seller_id_list;
@@ -157,5 +157,13 @@ public class PlaceOrderModel implements Serializable {
 
     public void setSeller_id_list(List<String> seller_id_list) {
         this.seller_id_list = seller_id_list;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }
