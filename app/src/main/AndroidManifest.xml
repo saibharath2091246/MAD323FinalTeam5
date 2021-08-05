@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
-        <activity android:name=".customer.AdvisorActivity"></activity>
+        <activity android:name=".seller.RatingListActivity"></activity>
+        <activity android:name=".customer.AdvisorActivity" />
         <activity android:name=".admin.ManageOrdersActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".customer.RepairRequestDetailsActivity" />
