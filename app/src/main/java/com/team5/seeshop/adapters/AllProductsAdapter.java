@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,9 +31,9 @@ import com.team5.seeshop.models.CartModel;
 import com.team5.seeshop.models.ProductModel;
 import com.team5.seeshop.utils.ConstantStrings;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.team5.seeshop.customer.CustomerDashboardActivity.home_cart_tv;
 
 public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder> {
 
@@ -41,7 +43,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public DatabaseReference databaseReference ;
     SharedPreferences sharedPref;
 
-    int valOfCart=0;
+    public static int valOfCart=0;
     int intentVal;
 
     public AllProductsAdapter(List<ProductModel> productModelList, Context context, int intentVal) {
@@ -71,10 +73,12 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
 
-        if (intentVal==2)
+        if (intentVal==2 || intentVal==3 )
         {
             holder.add_to_cart_btn.setVisibility(View.GONE);
         }
+
+
 
         if (productModelList.get(position).getImages().size()>0)
         {
@@ -84,11 +88,13 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
 
         if (intentVal==1) {
-            valOfCart = Integer.parseInt(home_cart_tv.getText().toString());
+            //valOfCart = Integer.parseInt(home_cart_tv.getText().toString());
+
             holder.add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     addToCartProduct(position);
+
                 }
             });
         }
@@ -107,6 +113,8 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
                 context.startActivity(intent);
             }
         });
+
+        getallCartprodcuts();
 
 
     }
@@ -134,6 +142,46 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     }
 
 
+    private void  getallCartprodcuts()
+    {
+        databaseReference=  mDatabase.getReference().child(ConstantStrings.CART).child(sharedPref.getString(ConstantStrings.USER_ID,"null"));
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists())
+                {
+
+                    List<CartModel>aa=new ArrayList<>();
+
+                    for (DataSnapshot ds:snapshot.getChildren()) {
+                        CartModel cartModel = ds.getValue(CartModel.class);
+
+                        aa.add(cartModel);
+
+                    }
+
+                    if (intentVal==1){
+                        if (aa.size()>0){
+                            home_cart_tv.setText("("+aa.size()+"");
+                            if (aa.size()>1) {
+                                ss_tv.setText(" items)");
+                            }else
+                            {
+                                ss_tv.setText(" item)");
+                            }}
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void addToCartProduct(int i) {
         databaseReference=  mDatabase.getReference().child(ConstantStrings.CART).child(sharedPref.getString(ConstantStrings.USER_ID,"null"));
         databaseReference.orderByChild("title").equalTo(productModelList.get(i).getTitle())
@@ -160,6 +208,12 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
 
                                     valOfCart=valOfCart+1;
                                     home_cart_tv.setText("("+valOfCart+"");
+                                    if (valOfCart>1) {
+                                        ss_tv.setText(" items)");
+                                    }else
+                                    {
+                                        ss_tv.setText(" item)");
+                                    }
                                     Toast.makeText(context,"Product added to cart", Toast.LENGTH_SHORT).show();
 
                                 }
