@@ -60,7 +60,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RelativeLayout drawerHead;
     private TextView nameTV;
-    public static TextView home_cart_tv;
+    public static TextView home_cart_tv,ss_tv;
 
     RelativeLayout viewContainer;
 
@@ -100,6 +100,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         search_view = findViewById(R.id.search_view);
         home_cart_tv = findViewById(R.id.home_cart_tv);
+        ss_tv = findViewById(R.id.ss_tv);
 
         actionBarLogo = findViewById(R.id.actionBar_logo);
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
@@ -229,12 +230,24 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_my_orders:
-                        Intent nav_my_orders = new Intent(getApplicationContext(), MyOrdersActivity.class);
+                        Intent nav_my_orders = new Intent(CustomerDashboardActivity.this, MyOrdersActivity.class);
                         nav_my_orders.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         startActivity(nav_my_orders);
                         drawer.closeDrawer(START);
                         break;
+//                    case R.id.nav_my_request:
+//                        Intent nav_my_request = new Intent(CustomerDashboardActivity.this, RepairRequestsActivity.class);
+//                        nav_my_request.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(nav_my_request);
+//                        drawer.closeDrawer(START);
+//                        break;
+//                    case R.id.nav_advisor:
+//                        Intent nav_advisor = new Intent(CustomerDashboardActivity.this, AdvisorActivity.class);
+//                        nav_advisor.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(nav_advisor);
+//                        drawer.closeDrawer(START);
+//                        break;
 
 
 

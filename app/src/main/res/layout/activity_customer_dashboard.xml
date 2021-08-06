@@ -71,11 +71,12 @@
                 android:onClick="openCart"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/ss_tv"
-                /> <TextView
+                />
+            <TextView
             android:id="@+id/ss_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" items)"
+            android:text=" item)"
             android:onClick="openCart"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

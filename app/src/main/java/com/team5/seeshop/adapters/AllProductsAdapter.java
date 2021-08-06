@@ -34,6 +34,8 @@ import com.team5.seeshop.utils.ConstantStrings;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.team5.seeshop.customer.CustomerDashboardActivity.home_cart_tv;
+import static com.team5.seeshop.customer.CustomerDashboardActivity.ss_tv;
 
 public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder> {
 
@@ -234,5 +236,4 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
         productModelList = filterllist;
         notifyDataSetChanged();
     }
-
 }
