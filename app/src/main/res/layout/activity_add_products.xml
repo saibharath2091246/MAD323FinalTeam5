@@ -248,6 +248,141 @@
             </LinearLayout>
 
 
+            <!--Ram-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_20dp"
+
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textSize="@dimen/_16sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/app_color"
+
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:text="Ram (GB)"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:background="@drawable/textfield_bg"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.3"
+                    >
+
+                    <EditText
+                        android:id="@+id/ram_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="2/4/8/16"
+                        android:inputType="number"
+                        android:padding="@dimen/_10dp"
+
+                        android:textColorHint="#BFBFBF" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Hard Disk-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_20dp"
+
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textSize="@dimen/_16sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/app_color"
+
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:text="Hard Disk"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:background="@drawable/textfield_bg"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.3"
+                    >
+
+                    <EditText
+                        android:id="@+id/hard_disk_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="250/500/1/2"
+                        android:inputType="number"
+                        android:padding="@dimen/_10dp"
+
+                        android:textColorHint="#BFBFBF" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--Graphic Card-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_20dp"
+
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:textSize="@dimen/_16sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/app_color"
+
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:text="Graphic Card"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_30dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:background="@drawable/textfield_bg"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.3"
+                    >
+
+                    <EditText
+                        android:id="@+id/gc_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="1/2/4/6"
+                        android:inputType="number"
+                        android:padding="@dimen/_10dp"
+
+                        android:textColorHint="#BFBFBF" />
+
+                </LinearLayout>
+            </LinearLayout>
+
             <!--enable-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -300,31 +435,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_20dp"
+                >
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_30dp"
                     android:layout_weight="0.7"
-                    android:text="Images"
-
+                    android:textSize="@dimen/_16sp"
+                    android:layout_gravity="center"
                     android:textColor="@color/app_color"
-                    android:textSize="@dimen/_16sp" />
 
+                    android:layout_marginLeft="@dimen/_30dp"
+                    android:text="Images"/>
                 <LinearLayout
                     android:id="@+id/image_choose_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_10dp"
                     android:layout_marginRight="@dimen/_30dp"
                     android:background="@drawable/textfield_bg"
-
                     android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.3"
+
+                    android:layout_marginLeft="@dimen/_10dp"
 
                     >
 
@@ -338,6 +474,7 @@
                         android:textColor="@color/black" />
 
 
+
                 </LinearLayout>
             </LinearLayout>
             <!--show images-->
@@ -346,7 +483,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose 2 images"
+                android:text="Choose at least 2 images"
                 android:textColor="@color/teal_200"
                 android:layout_marginLeft="@dimen/_30dp"
                 />

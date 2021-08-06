@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,7 +63,7 @@ public class AddProductsActivity extends AppCompatActivity {
     ProductModel productModel;
 
     AppCompatSpinner spinner;
-    EditText title_et,price_et,quantity_et,description_et;
+    EditText title_et,price_et,quantity_et,description_et,gc_et,ram_et,hard_disk_et;
     SwitchCompat enable_switch;
     LinearLayout image_choose_layout,images_layout;
     ImageView image1_iv,image2_iv;
@@ -86,7 +87,9 @@ public class AddProductsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_products);
+        getSupportActionBar().setTitle("Add Products");
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkAndRequestPermissions();
 
@@ -115,6 +118,11 @@ public class AddProductsActivity extends AppCompatActivity {
         image1_iv = findViewById(R.id.image1_iv);
         image2_iv = findViewById(R.id.image2_iv);
         add_btn = findViewById(R.id.add_btn);
+
+        gc_et = findViewById(R.id.gc_et);
+        ram_et = findViewById(R.id.ram_et);
+        hard_disk_et = findViewById(R.id.hard_disk_et);
+
 
         imagesList = new ArrayList<>();
 
@@ -158,6 +166,9 @@ public class AddProductsActivity extends AppCompatActivity {
                         || TextUtils.isEmpty(price_et.getText().toString())
                         || TextUtils.isEmpty(quantity_et.getText().toString())
                         || TextUtils.isEmpty(description_et.getText().toString())
+                        || TextUtils.isEmpty(ram_et.getText().toString())
+                        || TextUtils.isEmpty(hard_disk_et.getText().toString())
+                        || TextUtils.isEmpty(gc_et.getText().toString())
 
                 )
                 {
@@ -195,7 +206,15 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private void saveDataToFirebase() {
@@ -208,6 +227,9 @@ public class AddProductsActivity extends AppCompatActivity {
         productModel.setDescription(description_et.getText().toString());
         productModel.setBrand(brand_name);
         productModel.setProduct_enable(product_enable);
+        productModel.setRam(Integer.parseInt(ram_et.getText().toString().trim()));
+        productModel.setHard_disk(Integer.parseInt(hard_disk_et.getText().toString()));
+        productModel.setGraphic_card(Integer.parseInt(gc_et.getText().toString()));
 
 
 
@@ -275,7 +297,7 @@ public class AddProductsActivity extends AppCompatActivity {
                                 image1_iv.setImageBitmap(bitmap);
 
                             }
-                            if (image_count==2)
+                            else if (image_count==2)
                             {
                                 uploadImage();
                                 /*-- Previews Imageviews*/
@@ -351,8 +373,11 @@ public class AddProductsActivity extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             Uri downloadUrl = uri;
                                             uploadUrl=uri;
-
-                                            imagesList.add(uploadUrl.toString());
+                                            if (imagesList.size()>0)imagesList.clear();
+                                            if (image_count==1)
+                                                imagesList.add(0,uploadUrl.toString());
+                                            else if (image_count==2)
+                                                imagesList.add(1,uploadUrl.toString());
 
 
                                         }
@@ -403,7 +428,7 @@ public class AddProductsActivity extends AppCompatActivity {
         {
             if (intentUpdate.hasExtra(ConstantStrings.PRODUCT_ITEM))
             {
-
+                getSupportActionBar().setTitle("Update Products");
                 add_btn.setText("Update");
                 productModel= (ProductModel) intentUpdate.getSerializableExtra(ConstantStrings.PRODUCT_ITEM);
 
@@ -411,6 +436,9 @@ public class AddProductsActivity extends AppCompatActivity {
                 price_et.setText(""+productModel.getPrice());
                 quantity_et.setText(""+productModel.getQuantity());
                 description_et.setText(productModel.getDescription());
+                ram_et.setText(String.valueOf(productModel.getRam()));
+                hard_disk_et.setText(String.valueOf(productModel.getHard_disk()));
+                gc_et.setText(String.valueOf(productModel.getGraphic_card()));
 
 
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.brand, android.R.layout.simple_spinner_item);
@@ -429,24 +457,24 @@ public class AddProductsActivity extends AppCompatActivity {
                     enable_switch.setChecked(false);
                 }
 
-                images_layout.setVisibility(View.VISIBLE);
-                if (productModel.getImages().size()>=1)
+                images_layout.setVisibility(View.GONE);
+
+                if(indexExists(productModel.getImages(),0)){
+                    imagesList.add(0,productModel.getImages().get(0));
+                }
+
+                if(indexExists(productModel.getImages(),1)){
+                    imagesList.add(1,productModel.getImages().get(1));
+                }
+               /* if (productModel.getImages().size()>=1)
                 {
 
 
-                    /*----- Image loading library from internet ----------------------*/
-
-                    if(indexExists(productModel.getImages(),0)){
-                        Picasso.get().load(productModel.getImages().get(0)).into(image1_iv);
-                    }
-
-                    if(indexExists(productModel.getImages(),1)){
-                        Picasso.get().load(productModel.getImages().get(1)).into(image2_iv);
-                    }
-
-
+                    *//*----- Image loading library from internet ----------------------*//*
+                    Picasso.get().load(productModel.getImages().get(0)).into(image1_iv);
+                    Picasso.get().load(productModel.getImages().get(1)).into(image2_iv);
                 }
-
+*/
 
 
 
@@ -455,12 +483,9 @@ public class AddProductsActivity extends AppCompatActivity {
 
     }
 
-
     public boolean indexExists(final List list, final int index) {
         return index >= 0 && index < list.size();
     }
-
-
 
     /*-- Update product values ---*/
     private void updateDataToFirebase() {
@@ -474,6 +499,10 @@ public class AddProductsActivity extends AppCompatActivity {
         mDatabaseRef.child("description").setValue(description_et.getText().toString());
         mDatabaseRef.child("brand").setValue(brand_name);
         mDatabaseRef.child("product_enable").setValue(product_enable);
+
+        mDatabaseRef.child("ram").setValue(Integer.parseInt(ram_et.getText().toString().trim()));
+        mDatabaseRef.child("hard_disk").setValue(Integer.parseInt(hard_disk_et.getText().toString()));
+        mDatabaseRef.child("graphic_card").setValue(Integer.parseInt(gc_et.getText().toString()));
         if (imagesList.size()>0)
         {
             mDatabaseRef.child("images").setValue(imagesList);
@@ -496,7 +525,6 @@ public class AddProductsActivity extends AppCompatActivity {
 
 
     }
-
 
 
 

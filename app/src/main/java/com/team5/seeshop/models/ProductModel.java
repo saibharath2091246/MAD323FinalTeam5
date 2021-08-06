@@ -12,7 +12,7 @@ public class ProductModel implements Serializable {
     String description,brand;
     int product_enable;
 
-    List<RatingModel>ratingModelList;
+    List<RatingModel> ratingModelList;
 
     float average_rating;
 
