@@ -22,9 +22,11 @@ import com.team5.seeshop.models.PlaceOrderModel;
 import com.team5.seeshop.utils.ConstantStrings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MyOrdersActivity extends AppCompatActivity {
+
 
     public FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public DatabaseReference databaseReference ;
@@ -40,7 +42,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //  getSupportActionBar().hide();
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
 
         databaseReference = mDatabase.getReference(ConstantStrings.ORDERS).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
@@ -71,6 +73,7 @@ public class MyOrdersActivity extends AppCompatActivity {
 
                         productModelList.add(productModel2);
 
+                        Collections.reverse(productModelList);
                         OrdersAdapter adapter = new OrdersAdapter(productModelList, MyOrdersActivity.this);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(MyOrdersActivity.this));
@@ -99,4 +102,5 @@ public class MyOrdersActivity extends AppCompatActivity {
 
     }
     /*---------------------------------------------------------------------*/
+
 }

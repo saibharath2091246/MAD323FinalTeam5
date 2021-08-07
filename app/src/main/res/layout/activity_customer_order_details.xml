@@ -13,6 +13,17 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/welcome_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Details"
+            android:textSize="@dimen/_30sp"
+            android:textAlignment="center"
+            android:textColor="@color/app_color"
+            android:layout_marginTop="@dimen/_10dp"
+            />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/order_id_tv"
@@ -20,6 +31,7 @@
             android:textColor="@color/black"
             android:textAlignment="center"
             android:text="#3r3r3r3r3r"
+            android:layout_marginTop="@dimen/_10dp"
 
             />
 
@@ -71,7 +83,7 @@
             android:textSize="@dimen/_16sp"
             android:textColor="@color/black"
             android:textAlignment="center"
-            android:text="#3r3r3r3r3r"
+            android:text=""
 
             />
 

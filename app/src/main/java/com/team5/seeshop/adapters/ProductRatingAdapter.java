@@ -3,6 +3,7 @@ package com.team5.seeshop.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ public class ProductRatingAdapter extends RecyclerView.Adapter<ProductRatingAdap
     List<RatingModel> ratingModelList;
     Context context;
     SharedPreferences sharedPref;
-
     public ProductRatingAdapter(List<RatingModel> ratingModelList, Context context) {
         this.ratingModelList = ratingModelList;
         this.context = context;
@@ -35,7 +35,7 @@ public class ProductRatingAdapter extends RecyclerView.Adapter<ProductRatingAdap
     @Override
     public ProductRatingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem = layoutInflater.inflate(R.layout.product_rating_row, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.product_rating_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
@@ -50,10 +50,13 @@ public class ProductRatingAdapter extends RecyclerView.Adapter<ProductRatingAdap
 
         holder.name_tv.setText(ratingModelList.get(position).getName());
 
-        sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
+        sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
 
 
         holder.rating_bar.setRating(ratingModelList.get(position).getRating());
+
+        Log.e("rrrrrr","ratignsss : "+ratingModelList.get(position).getRating());
+
 
 
     }
@@ -67,17 +70,22 @@ public class ProductRatingAdapter extends RecyclerView.Adapter<ProductRatingAdap
         public TextView name_tv;
 
         MaterialRatingBar rating_bar;
-
         public ViewHolder(View itemView) {
             super(itemView);
             name_tv = (TextView) itemView.findViewById(R.id.name_tv);
 
-            rating_bar = itemView.findViewById(R.id.rating_bar);
+            rating_bar =  itemView.findViewById(R.id.rating_bar);
 
 
         }
     }
+
+
+
+
+
 }
+
 
 
 

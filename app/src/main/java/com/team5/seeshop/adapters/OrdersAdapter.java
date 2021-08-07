@@ -33,7 +33,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrdersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem= layoutInflater.inflate(R.layout.orders_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -46,20 +46,22 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrdersAdapter.ViewHolder holder, int position) {
 
-        holder.title_tv.setText(productModelList.get(position).getCartItems().get(0).getTitle());
+        if (productModelList.get(position).getCartItems().size()==1)
+            holder.title_tv.setText(productModelList.get(position).getCartItems().size() +" item" );
+        else
+            holder.title_tv.setText(productModelList.get(position).getCartItems().size() +" items" );
+
         holder.price_tv.setText("$"+productModelList.get(position).getTotal_amount());
-        holder.order_id_tv.setText(productModelList.get(position).getOrder_id());
+        holder.order_id_tv.setText("#"+productModelList.get(position).getOrder_id());
         holder.status_tv.setText(""+productModelList.get(position).getOrder_status());
         sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
 
 
-        if (productModelList.get(position).getCartItems().get(0).getImages().size()>0)
-        {
 
-            Picasso.get().load(productModelList.get(position).getCartItems().get(0).getImages().get(0)).into(holder.image_iv);
-        }
+        //  Picasso.get().load(productModelList.get(position).getCartItems().get(0).getImages().get(0)).into(holder.image_iv);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,15 +84,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv,order_id_tv,status_tv;
-         ImageView image_iv;
-          public ViewHolder(View itemView) {
+        public TextView title_tv,price_tv,order_id_tv,status_tv;
+        ImageView image_iv;
+        public ViewHolder(View itemView) {
             super(itemView);
-             title_tv = (TextView) itemView.findViewById(R.id.title_tv);
+            title_tv = (TextView) itemView.findViewById(R.id.title_tv);
             price_tv = (TextView) itemView.findViewById(R.id.price_tv);
-             order_id_tv = (TextView) itemView.findViewById(R.id.order_id_tv);
-             status_tv = (TextView) itemView.findViewById(R.id.status_tv);
-              image_iv =  itemView.findViewById(R.id.image_iv);
+            order_id_tv = (TextView) itemView.findViewById(R.id.order_id_tv);
+            status_tv = (TextView) itemView.findViewById(R.id.status_tv);
+            image_iv =  itemView.findViewById(R.id.image_iv);
 
 
         }

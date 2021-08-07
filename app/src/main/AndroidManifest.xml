@@ -21,34 +21,62 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeShop">
-        <activity android:name=".seller.RatingListActivity"></activity>
+        <activity android:name=".seller.RatingListActivity"
+            android:parentActivityName=".seller.SellerOrdersActivity"></activity>
         <activity android:name=".customer.AdvisorActivity" />
         <activity android:name=".admin.ManageOrdersActivity" />
         <activity android:name=".ForgotPasswordActivity" />
-        <activity android:name=".customer.RepairRequestDetailsActivity" />
+        <activity android:name=".customer.RepairRequestsActivity"
+            android:parentActivityName=".customer.CustomerDashboardActivity"
+            />
+        <activity android:name=".customer.RepairRequestDetailsActivity"
+            android:parentActivityName=".customer.RepairRequestsActivity"
+            />
+        <activity android:name=".customer.SendRepairRequestActivity" />
+
+        <activity android:name=".seller.SellerRepairRequestsActivity"
+            android:parentActivityName=".HomeActivity"
+            />
         <activity
             android:name=".seller.SellerOrderDetailsActivity"
             android:parentActivityName=".seller.SellerOrdersActivity" />
         <activity
             android:name=".seller.SellerOrdersActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity"
+            android:label="My Orders"
+            />
+
         <activity
             android:name=".customer.CustomerOrderDetailsActivity"
             android:parentActivityName=".customer.MyOrdersActivity" />
-        <activity android:name=".admin.AdminAllProductsActivity" />
+
+        <activity
+            android:name=".admin.AdminAllProductsActivity"
+            android:parentActivityName=".admin.AdminDashboardActivity"
+            android:label="@string/title_activity_admin_all_products" />
+
         <activity
             android:name=".customer.MyOrdersActivity"
             android:label="My Orders"
             android:parentActivityName=".customer.CustomerDashboardActivity" />
-        <activity android:name=".customer.OrderPlacedActivity" />
-        <activity android:name=".customer.CheckoutActivity" />
+
+        <activity android:name=".customer.OrderPlacedActivity"
+            android:parentActivityName=".customer.CustomerDashboardActivity"
+            />
+
+        <activity android:name=".customer.CheckoutActivity"
+            android:parentActivityName=".customer.CartActivity"
+            />
+
         <activity
             android:name=".customer.CartActivity"
             android:label="Cart"
             android:parentActivityName=".customer.CustomerDashboardActivity" />
+
         <activity
             android:name=".customer.ProductDetailsActivity"
             android:parentActivityName=".customer.CustomerDashboardActivity" />
+
         <activity android:name=".customer.CustomerDashboardActivity" />
         <activity android:name=".seller.ManageProductsActivity" />
         <activity android:name=".seller.AddProductsActivity" />
@@ -68,7 +96,9 @@
         <activity android:name=".admin.UsersListActivity" />
         <activity android:name=".admin.AdminLoginActivity" />
         <activity android:name=".admin.AdminDashboardActivity" />
-        <activity android:name=".admin.AdminProfileActivity" />
+        <activity android:name=".admin.AdminProfileActivity"
+            android:parentActivityName=".admin.AdminDashboardActivity"
+            />
     </application>
 
 </manifest>

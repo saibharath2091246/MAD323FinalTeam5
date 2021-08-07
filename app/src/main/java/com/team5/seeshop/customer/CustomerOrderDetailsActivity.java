@@ -32,9 +32,6 @@ public class CustomerOrderDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_details);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         if (getIntent().hasExtra("order_details"))
         {
             placeOrderModel= (PlaceOrderModel) getIntent().getSerializableExtra("order_details");
@@ -57,7 +54,7 @@ public class CustomerOrderDetailsActivity extends AppCompatActivity {
         order_id_tv.setText("Order id : #"+ placeOrderModel.getOrder_id());
         price_tv.setText("Total Amount: $"+ placeOrderModel.getTotal_amount());
         date_time_tv.setText("Date : "+ placeOrderModel.getOrder_date() + " , "+ placeOrderModel.getOrder_time());
-        user_id_tv.setText("User id : "+ placeOrderModel.getUser_id());
+        //user_id_tv.setText("User Name : "+ placeOrderModel.getUser_name());
         phone_tv.setText("Contact Number : "+ placeOrderModel.getPhone_number());
         address_tv.setText("Address : #"+ placeOrderModel.getAddress() + " , " +placeOrderModel.getCity()+ " \n " + placeOrderModel.getPostal_code());
 
@@ -66,9 +63,11 @@ public class CustomerOrderDetailsActivity extends AppCompatActivity {
 
 
 
-        CustomerOrderCartListAdapter adapter = new CustomerOrderCartListAdapter(cartModelList, CustomerOrderDetailsActivity.this);
+        CustomerOrderCartListAdapter adapter = new CustomerOrderCartListAdapter(cartModelList, CustomerOrderDetailsActivity.this,placeOrderModel.getOrder_id(),placeOrderModel.getSeller_id_list().get(0));
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(CustomerOrderDetailsActivity.this));
         recyclerView.setAdapter(adapter);
     }
+
+
 }

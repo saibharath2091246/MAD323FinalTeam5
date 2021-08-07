@@ -12,4 +12,6 @@
         <item>Dell</item>
         <item>Lenovo</item>
     </string-array>
+
+    <string name="title_activity_admin_all_products">AdminAllProductsActivity</string>
 </resources>

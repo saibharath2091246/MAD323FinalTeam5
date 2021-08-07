@@ -34,7 +34,7 @@ public class RatingListAdapter extends RecyclerView.Adapter<RatingListAdapter.Vi
     public DatabaseReference databaseReference ;
     SharedPreferences sharedPref;
 
-     int intentVal;
+    int intentVal;
 
     public RatingListAdapter(List<ProductModel> productModelList, Context context, int intentVal) {
         this.productModelList = productModelList;
@@ -44,7 +44,7 @@ public class RatingListAdapter extends RecyclerView.Adapter<RatingListAdapter.Vi
 
     @NonNull
     @Override
-    public com.team5.seeshop.adapters.RatingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RatingListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem= layoutInflater.inflate(R.layout.rating_list_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -60,23 +60,17 @@ public class RatingListAdapter extends RecyclerView.Adapter<RatingListAdapter.Vi
     public void onBindViewHolder(@NonNull RatingListAdapter.ViewHolder holder, int position) {
         sharedPref = context.getSharedPreferences(ConstantStrings.SEESHOP_PREFS, 0);
 
-         holder.title_tv.setText(productModelList.get(position).getTitle());
+        holder.title_tv.setText(productModelList.get(position).getTitle());
         holder.price_tv.setText("$"+productModelList.get(position).getPrice());
 
 
 
-       /* if (productModelList.get(position).getRatingModelList()!=null) {
-            for (int i=0;i<productModelList.get(position).getRatingModelList().size();i++) {
-                float total = 0;
-                total += productModelList.get(position).getRatingModelList().get(i).getRating();
-                float average = total / 2;
-                holder.rating_bar.setRating(average);
-            }
-        }*/
+
+
 
 
         if (productModelList.get(position).getAverage_rating()>0)
-        holder.rating_bar.setRating(productModelList.get(position).getAverage_rating());
+            holder.rating_bar.setRating(productModelList.get(position).getAverage_rating());
 
 
         if (productModelList.get(position).getImages().size()>0)
@@ -90,7 +84,7 @@ public class RatingListAdapter extends RecyclerView.Adapter<RatingListAdapter.Vi
 
 
 
-holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -113,7 +107,7 @@ holder.itemView.setOnClickListener(new View.OnClickListener() {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-         public TextView title_tv,price_tv;
+        public TextView title_tv,price_tv;
 
         ImageView image_iv;
         LinearLayout layout;

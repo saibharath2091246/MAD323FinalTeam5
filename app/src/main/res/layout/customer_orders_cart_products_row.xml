@@ -28,23 +28,23 @@
         android:orientation="vertical"
         android:layout_weight="2"
         android:layout_gravity="center"
-         >
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:id="@+id/title_tv"
+            android:id="@+id/title_tv"
             android:text="tttttt"
             android:textStyle="bold"
             android:textSize="@dimen/_18sp"
             android:textColor="@color/black"
-             android:layout_marginRight="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp"
 
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:id="@+id/quantity_tv"
-             android:textSize="@dimen/_16sp"
+            android:id="@+id/quantity_tv"
+            android:textSize="@dimen/_16sp"
             android:textColor="@color/black"
 
             />
@@ -52,52 +52,68 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:id="@+id/price_tv"
+            android:id="@+id/price_tv"
             android:text="200"
             android:textSize="@dimen/_16sp"
             android:textColor="@color/black"
 
             />
-<LinearLayout
-    android:id="@+id/rating_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:visibility="gone"
+        <LinearLayout
+            android:id="@+id/rating_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
 
-    >
-    <me.zhanghai.android.materialratingbar.MaterialRatingBar
-        android:id="@+id/rating_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:stepSize="0.5"
-        android:numStars="5"
-        android:rating="1"
-        android:clickable="false"
-        android:layout_marginTop="@dimen/_10dp"
-        android:minHeight="@dimen/_30dp"
-        android:layout_gravity="center"
-        app:mrb_fillBackgroundStars="true"
-        style="@style/Widget.MaterialRatingBar.RatingBar" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rate_button"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/solid_bg_app_color_round_corner"
-        android:textColor="@color/white"
-        android:text="Rate product"
-        android:padding="10dp"
-        />
-</LinearLayout>
+            >
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:stepSize="0.5"
+                android:numStars="5"
+                android:isIndicator="false"
+                android:rating="1"
+                android:clickable="false"
+                android:layout_marginTop="@dimen/_10dp"
+                android:minHeight="@dimen/_30dp"
+                android:layout_gravity="center"
+                app:mrb_fillBackgroundStars="true"
+                style="@style/Widget.MaterialRatingBar.RatingBar" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rate_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/solid_bg_app_color_round_corner"
+                android:textColor="@color/white"
+                android:text="Rate product"
+                android:padding="10dp"
+                />
+        </LinearLayout>
 
 
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repair_btn"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/textfield_bg"
+            android:textColor="@color/app_color"
+            android:text="Repair Request"
+            android:textAllCaps="false"
+            android:padding="10dp"
+            android:visibility="gone"
+            />
 
     </LinearLayout>
 

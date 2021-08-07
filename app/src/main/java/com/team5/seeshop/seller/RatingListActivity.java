@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RatingListActivity extends AppCompatActivity {
-
     public FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public DatabaseReference databaseReference ;
 
@@ -101,5 +100,4 @@ public class RatingListActivity extends AppCompatActivity {
 
 
     }
-
 }

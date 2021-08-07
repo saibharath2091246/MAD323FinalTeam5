@@ -63,7 +63,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     DatabaseReference mDatabaseRef;
     SharedPreferences sharedPref;
     static boolean isAddedInCart = false;
-    //  MaterialRatingBar rating_bar;
+    MaterialRatingBar rating_bar;
 
     int intentVal;
 
@@ -73,10 +73,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
     ProductRatingAdapter adapter;
     private ProgressBar progressBar;
 
+    float average_rating=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+
+        getSupportActionBar().setTitle("Product details");
 
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
         title_tv = findViewById(R.id.title_tv);
@@ -86,6 +89,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         add_to_cart_btn = findViewById(R.id.add_to_cart_btn);
         progressBar = findViewById(R.id.progressBar);
         quantity_tv = findViewById(R.id.quantity_tv);
+        rating_bar = findViewById(R.id.rating_bar);
         intent= getIntent();
         ratingModelList= new ArrayList<>();
         if (intent.hasExtra(ConstantStrings.PRODUCT_ITEM))
@@ -115,7 +119,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         quantity_tv.setText("Quantity : "+productModel.getQuantity());
         //  rating_bar.setRating(productModel.getRating());
 
-        if (intentVal==2)
+        if (intentVal==2 ||intentVal==3)
         {
             add_to_cart_btn.setVisibility(View.INVISIBLE);
         }
@@ -248,19 +252,36 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
                     progressBar.setVisibility(View.GONE);
 
-
-
+                    float total = 0;
+                    int count=0;
+                    RatingModel ratingModel = null;
                     for (DataSnapshot productDs : dataSnapshot.getChildren())
                     {
+                        count=count+1;
+                        ratingModel= productDs.getValue(RatingModel.class);
 
-                        RatingModel ratingModel= productDs.getValue(RatingModel.class);
-                        ratingModelList.add(ratingModel);
-                        adapter = new ProductRatingAdapter(ratingModelList, ProductDetailsActivity.this);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(ProductDetailsActivity.this));
-                        recyclerView.setAdapter(adapter);
+
+                        total += ratingModel.getRating();
+
+                        if (intentVal==2 || intentVal==3) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            rating_bar.setVisibility(View.GONE);
+                            ratingModelList.add(ratingModel);
+                            adapter = new ProductRatingAdapter(ratingModelList, ProductDetailsActivity.this);
+                            recyclerView.setHasFixedSize(true);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(ProductDetailsActivity.this));
+                            recyclerView.setAdapter(adapter);
+                        }
+
 
                     }
+
+                    float average = total / count;
+
+                    rating_bar.setRating(average);
+
+                    updateAverageRatingInFirebase(average);
+
 
 
 
@@ -283,5 +304,16 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void updateAverageRatingInFirebase(float average_rating)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = database.getReference(ConstantStrings.PRODUCTS).child(productModel.getSeller_id()).child(productModel.getProduct_id());
+        mDatabaseRef.child("average_rating").setValue(average_rating).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+            }
+        });
     }
 }
