@@ -21,6 +21,14 @@
             android:id="@+id/nav_my_orders"
              android:title="My Orders" />
 
+        <item
+            android:id="@+id/nav_my_request"
+            android:title="My Requests" />
+
+        <item
+            android:id="@+id/nav_advisor"
+            android:title="Advisor" />
+
 
 
         <item

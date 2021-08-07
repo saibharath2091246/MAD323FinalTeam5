@@ -236,18 +236,18 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                         startActivity(nav_my_orders);
                         drawer.closeDrawer(START);
                         break;
-//                    case R.id.nav_my_request:
-//                        Intent nav_my_request = new Intent(CustomerDashboardActivity.this, RepairRequestsActivity.class);
-//                        nav_my_request.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(nav_my_request);
-//                        drawer.closeDrawer(START);
-//                        break;
-//                    case R.id.nav_advisor:
-//                        Intent nav_advisor = new Intent(CustomerDashboardActivity.this, AdvisorActivity.class);
-//                        nav_advisor.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(nav_advisor);
-//                        drawer.closeDrawer(START);
-//                        break;
+                    case R.id.nav_my_request:
+                        Intent nav_my_request = new Intent(CustomerDashboardActivity.this, RepairRequestsActivity.class);
+                        nav_my_request.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(nav_my_request);
+                        drawer.closeDrawer(START);
+                        break;
+                    case R.id.nav_advisor:
+                        Intent nav_advisor = new Intent(CustomerDashboardActivity.this, AdvisorActivity.class);
+                        nav_advisor.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(nav_advisor);
+                        drawer.closeDrawer(START);
+                        break;
 
 
 

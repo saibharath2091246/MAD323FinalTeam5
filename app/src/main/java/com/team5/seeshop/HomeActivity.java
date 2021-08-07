@@ -31,7 +31,9 @@ import com.team5.seeshop.adapters.AllProductsAdapter;
 import com.team5.seeshop.models.ProductModel;
 import com.team5.seeshop.seller.AddProductsActivity;
 import com.team5.seeshop.seller.ManageProductsActivity;
+import com.team5.seeshop.seller.RatingListActivity;
 import com.team5.seeshop.seller.SellerOrdersActivity;
+import com.team5.seeshop.seller.SellerRepairRequestsActivity;
 import com.team5.seeshop.utils.ConstantStrings;
 
 import java.util.ArrayList;
@@ -178,10 +180,24 @@ public class HomeActivity extends AppCompatActivity {
                         drawer.closeDrawer(START);
                         break;
 
+                    case R.id.nav_product_ratings:
+                        Intent nav_product_ratings = new Intent(HomeActivity.this, RatingListActivity.class);
+                        nav_product_ratings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(nav_product_ratings);
+                        drawer.closeDrawer(START);
+                        break;
+
                     case R.id.nav_manage_orders:
                         Intent nav_manage_orders = new Intent(HomeActivity.this, SellerOrdersActivity.class);
                         nav_manage_orders.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(nav_manage_orders);
+                        drawer.closeDrawer(START);
+                        break;
+
+                    case R.id.nav_repair_requests:
+                        Intent nav_repair_requests = new Intent(HomeActivity.this, SellerRepairRequestsActivity.class);
+                        nav_repair_requests.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(nav_repair_requests);
                         drawer.closeDrawer(START);
                         break;
 

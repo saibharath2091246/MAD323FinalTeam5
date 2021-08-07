@@ -25,6 +25,13 @@
             android:title="Manage Orders" />
 
         <item
+            android:id="@+id/nav_product_ratings"
+            android:title="Product Ratings" />
+        <item
+            android:id="@+id/nav_repair_requests"
+            android:title="Repair Requests" />
+
+        <item
             android:id="@+id/nav_logout"
              android:title="Log Out" />
 
