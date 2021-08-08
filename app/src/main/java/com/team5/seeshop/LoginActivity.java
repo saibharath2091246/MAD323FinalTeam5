@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -45,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout customer_layout,seller_layout;
     int IS_SELLER=0;
 
+    ImageView show_pass_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         seller_layout=findViewById(R.id.seller_layout);
         customer_layout=findViewById(R.id.customer_layout);
+        show_pass_btn=findViewById(R.id.show_pass_btn);
 
         FirebaseAuth.getInstance().signOut();
 
@@ -202,5 +208,27 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void ShowHidePass(View view) {
+        if(view.getId()==R.id.show_pass_btn){
+
+            if(password_et.getTransformationMethod().equals(PasswordTransformationMethod.getInstance()))
+            {
+                show_pass_btn.setImageResource(R.drawable.ic_show);
+
+                //Show Password
+                password_et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                password_et.setSelection(password_et.getText().length());
+            }
+            else{
+                show_pass_btn.setImageResource(R.drawable.ic_hide_pass);
+
+                //Hide Password
+                password_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                password_et.setSelection(password_et.getText().length());
+            }
+        }
+
     }
 }

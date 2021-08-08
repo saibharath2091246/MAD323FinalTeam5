@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -30,7 +33,9 @@ public class AdminLoginActivity extends AppCompatActivity {
     public DatabaseReference databaseReference = mDatabase.getReference();
     SharedPreferences sharedPref;
 
-    String loginemail, loginpassword,email,password;
+    String loginemail, loginpassword, email, password;
+
+    ImageView show_pass_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +45,12 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         email_et = findViewById(R.id.email_et);
         password_et = findViewById(R.id.password_et);
+        show_pass_btn = findViewById(R.id.show_pass_btn);
 
 
         getAdminData();
 
     }
-
 
 
     public void openDashboard(View view) {
@@ -54,8 +59,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             return;
         }
 
-        if (loginemail.equals(email)&& loginpassword.equals(password))
-        {
+        if (loginemail.equals(email) && loginpassword.equals(password)) {
             SharedPreferences.Editor editor = getSharedPreferences(ConstantStrings.SEESHOP_PREFS, MODE_PRIVATE).edit();
             editor.putString(ConstantStrings.USER_ID, email);
             editor.apply();
@@ -64,7 +68,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
             finish();
 
-        }else {
+        } else {
             Toast.makeText(this, "Invalid login and password", Toast.LENGTH_SHORT).show();
         }
 
@@ -79,9 +83,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         } else if (!Patterns.EMAIL_ADDRESS.matcher(loginemail).matches()) {
             Toast.makeText(AdminLoginActivity.this, "Please enter valid Email", Toast.LENGTH_SHORT).show();
             return false;
-        }
-
-        else {
+        } else {
             return true;
         }
     }
@@ -104,8 +106,10 @@ public class AdminLoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.exists()) { email = String.valueOf(dataSnapshot.child("email").getValue());
-                    password = String.valueOf(dataSnapshot.child("password").getValue()); }
+                if (dataSnapshot.exists()) {
+                    email = String.valueOf(dataSnapshot.child("email").getValue());
+                    password = String.valueOf(dataSnapshot.child("password").getValue());
+                }
             }
 
             @Override
@@ -115,5 +119,26 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    public void ShowHidePass(View view) {
+        if (view.getId() == R.id.show_pass_btn) {
+
+            if (password_et.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                show_pass_btn.setImageResource(R.drawable.ic_show);
+
+                //Show Password
+                password_et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                password_et.setSelection(password_et.getText().length());
+
+            } else {
+                show_pass_btn.setImageResource(R.drawable.ic_hide_pass);
+
+                //Hide Password
+                password_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                password_et.setSelection(password_et.getText().length());
+
+            }
+        }
     }
 }

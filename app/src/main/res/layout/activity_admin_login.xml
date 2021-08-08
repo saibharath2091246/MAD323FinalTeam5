@@ -86,7 +86,7 @@
 
                 android:layout_marginLeft="@dimen/_30dp"
                 android:text="@string/password"/>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_30dp"
@@ -106,9 +106,21 @@
                     android:inputType="textPassword"
                     android:padding="@dimen/_10dp"
 
-                    android:textColorHint="#BFBFBF" />
+                    android:layout_toStartOf="@+id/show_pass_btn"
 
-            </LinearLayout>
+                    android:textColorHint="#BFBFBF" />
+                <ImageView
+                    android:id="@+id/show_pass_btn"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:alpha=".5"
+                    android:onClick="ShowHidePass"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_hide_pass" />
+            </RelativeLayout>
         </LinearLayout>
         <Button
             android:id="@+id/login_btn"
