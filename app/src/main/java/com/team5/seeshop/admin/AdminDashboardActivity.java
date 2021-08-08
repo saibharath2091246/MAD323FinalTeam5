@@ -60,6 +60,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openAdminOrders(View view) {
+        Intent intent = new Intent(AdminDashboardActivity.this, MainManageOrderActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){

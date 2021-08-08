@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ManageOrdersActivity extends AppCompatActivity {
+public class ManageCustomerOrdersActivity extends AppCompatActivity {
 
     public FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     public DatabaseReference databaseReference ;
@@ -45,7 +45,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
     AdminAllOrdersAdapter adapter;
 
-    List<UserModel>seller_list;
+    List<UserModel> customer_list;
     Spinner spinner;
     int check = 0;
 
@@ -56,10 +56,10 @@ public class ManageOrdersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_orders);
+        setContentView(R.layout.activity_manage_customer_orders);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("All seller Orders");
+        getSupportActionBar().setTitle("All customer Orders");
 
         /*--------- Get All Products -------------------*/
         databaseReference = mDatabase.getReference(ConstantStrings.ORDERS);
@@ -71,9 +71,10 @@ public class ManageOrdersActivity extends AppCompatActivity {
         all_cb =  findViewById(R.id.all_cb);
 
         // placeOrderModelList=new ArrayList<>();
-        seller_list=new ArrayList<>();
-        getSellersData();
+        customer_list=new ArrayList<>();
+        getCustomerData();
         getAllOrdersData();
+
 
         all_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -103,17 +104,13 @@ public class ManageOrdersActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 if(++check > 1) {
-                    UserModel userModel = seller_list.get(i);
+                    UserModel userModel = customer_list.get(i);
                     Log.e("asssasass-> ", userModel.getUser_id());
 
 
-                    getSellerOrdersData(userModel.getUser_id());
+                    getCustomerOrdersData(userModel.getUser_id());
 
                 }
-
-
-
-
             }
 
             @Override
@@ -121,15 +118,12 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
 
-
-
-
-
-    private void getSellersData() {
+    private void getCustomerData() {
 
         DatabaseReference databaseReference = mDatabase.getReference().child(ConstantStrings.USERS_TABLE_KEY);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -145,7 +139,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
                         UserModel userModel = new UserModel();
 
 
-                        if (userModel2.getUser_type().equals("seller"))
+                        if (userModel2.getUser_type().equals("customer"))
                         {
 
 
@@ -153,8 +147,8 @@ public class ManageOrdersActivity extends AppCompatActivity {
                             userModel.setUser_name(userModel2.getUser_name());
                             userModel.setUser_id(userModel2.getUser_id());
 
-                            seller_list.add(userModel);
-                            ArrayAdapter<UserModel> dataAdapter = new ArrayAdapter<UserModel>(ManageOrdersActivity.this, android.R.layout.simple_spinner_item, seller_list);
+                            customer_list.add(userModel);
+                            ArrayAdapter<UserModel> dataAdapter = new ArrayAdapter<UserModel>(ManageCustomerOrdersActivity.this, android.R.layout.simple_spinner_item, customer_list);
                             spinner.setAdapter(dataAdapter);
 
 
@@ -182,10 +176,10 @@ public class ManageOrdersActivity extends AppCompatActivity {
     }
 
 
-    private void getSellerOrdersData(String sellerid) {
+    private void getCustomerOrdersData(String customer_id) {
         progressBar.setVisibility(View.VISIBLE);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child(customer_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -196,38 +190,30 @@ public class ManageOrdersActivity extends AppCompatActivity {
                     no_found_tv.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                        for (DataSnapshot productDs : ds.getChildren()) {
-                            PlaceOrderModel productModel2 = productDs.getValue(PlaceOrderModel.class);
+                        PlaceOrderModel productModel2 = ds.getValue(PlaceOrderModel.class);
 
 
-                            Log.e("sellerorderer",productModel2.getOrder_id());
-                            List<String> seller_id = productModel2.getSeller_id_list();
-                            if (seller_id.contains(sellerid)) {
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                                no_found_tv.setVisibility(View.GONE);
-                                productModelList.add(productModel2);
-                                Collections.reverse(productModelList);
 
-                                AdminAllOrdersAdapter adapter = new AdminAllOrdersAdapter(productModelList, ManageOrdersActivity.this);
-                                recyclerView.setHasFixedSize(true);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(ManageOrdersActivity.this));
-                                recyclerView.setAdapter(adapter);
-                                break;
-                            }else{
-                                progressBar.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.GONE);
-                                no_found_tv.setVisibility(View.VISIBLE);
-                                break;
-                            }
-                        }
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        no_found_tv.setVisibility(View.GONE);
+                        productModelList.add(productModel2);
+                        Collections.reverse(productModelList);
+
+                        AdminAllOrdersAdapter adapter = new AdminAllOrdersAdapter(productModelList, ManageCustomerOrdersActivity.this);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ManageCustomerOrdersActivity.this));
+                        recyclerView.setAdapter(adapter);
+
+
+
                     }
 
                 } else {
                     no_found_tv.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(ManageOrdersActivity.this, "No orders found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageCustomerOrdersActivity.this, "No orders found.", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -260,17 +246,12 @@ public class ManageOrdersActivity extends AppCompatActivity {
 
                         for (DataSnapshot productDs : ds.getChildren()) {
                             PlaceOrderModel productModel2 = productDs.getValue(PlaceOrderModel.class);
-
-
-                            Log.e("sellerorderer",productModel2.getOrder_id());
-                            List<String> seller_id = productModel2.getSeller_id_list();
-
                             placeOrderModelList.add(productModel2);
                             Collections.reverse(placeOrderModelList);
 
-                            adapter = new AdminAllOrdersAdapter(placeOrderModelList, ManageOrdersActivity.this);
+                            adapter = new AdminAllOrdersAdapter(placeOrderModelList, ManageCustomerOrdersActivity.this);
                             recyclerView.setHasFixedSize(true);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(ManageOrdersActivity.this));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(ManageCustomerOrdersActivity.this));
                             recyclerView.setAdapter(adapter);
 
                         }
@@ -280,7 +261,7 @@ public class ManageOrdersActivity extends AppCompatActivity {
                     no_found_tv.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(ManageOrdersActivity.this, "No orders found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManageCustomerOrdersActivity.this, "No orders found.", Toast.LENGTH_SHORT).show();
 
                 }
             }

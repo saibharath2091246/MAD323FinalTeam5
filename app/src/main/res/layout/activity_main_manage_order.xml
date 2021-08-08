@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.MainManageOrderActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/seeshop_logo"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:id="@+id/one_layout"
+        android:layout_below="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/_30dp"
+        android:onClick="openSellersOrdersList"
+        android:background="@color/app_color"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Seller Orders"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/two_layout"
+        android:layout_below="@+id/one_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/_30dp"
+        android:onClick="openCustomerOrdersList"
+        android:background="@color/app_color"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Customer Orders"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/_16sp"/>
+
+    </RelativeLayout>
+</RelativeLayout>

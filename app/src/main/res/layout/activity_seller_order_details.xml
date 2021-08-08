@@ -64,16 +64,16 @@
         android:layout_below="@+id/view1"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/user_id_tv"
-            android:textSize="@dimen/_16sp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:text="#3r3r3r3r3r"
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/user_id_tv"-->
+<!--            android:textSize="@dimen/_16sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textAlignment="center"-->
+<!--            android:text="#3r3r3r3r3r"-->
 
-            />
+<!--            />-->
 
         <TextView
             android:layout_width="match_parent"

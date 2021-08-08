@@ -373,12 +373,10 @@ public class AddProductsActivity extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             Uri downloadUrl = uri;
                                             uploadUrl=uri;
-                                            imagesList.add(uploadUrl.toString());
-//                                            if (imagesList.size()>0)imagesList.clear();
-//                                            if (image_count==1)
-//                                                imagesList.add(0,uploadUrl.toString());
-//                                            else if (image_count==2)
-//                                                imagesList.add(1,uploadUrl.toString());
+                                            if (image_count==1)
+                                                imagesList.add(0,uploadUrl.toString());
+                                            else if (image_count==2)
+                                                imagesList.add(1,uploadUrl.toString());
 
 
                                         }
