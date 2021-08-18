@@ -74,7 +74,7 @@
                 android:stepSize="0.5"
                 android:numStars="5"
                 android:isIndicator="false"
-                android:rating="1"
+                android:rating="0"
                 android:clickable="false"
                 android:layout_marginTop="@dimen/_10dp"
                 android:minHeight="@dimen/_30dp"

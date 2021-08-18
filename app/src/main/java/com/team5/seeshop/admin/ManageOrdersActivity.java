@@ -213,12 +213,12 @@ public class ManageOrdersActivity extends AppCompatActivity {
                                 recyclerView.setHasFixedSize(true);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ManageOrdersActivity.this));
                                 recyclerView.setAdapter(adapter);
-                                break;
+                                //break;
                             }else{
                                 progressBar.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.GONE);
                                 no_found_tv.setVisibility(View.VISIBLE);
-                                break;
+                                //break;
                             }
                         }
                     }

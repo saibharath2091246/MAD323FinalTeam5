@@ -31,7 +31,9 @@
             android:name=".seller.RatingListActivity"
             android:parentActivityName=".seller.SellerOrdersActivity" />
         <activity android:name=".customer.AdvisorActivity" />
-        <activity android:name=".admin.ManageOrdersActivity" />
+        <activity android:name=".admin.ManageOrdersActivity"
+            android:parentActivityName=".admin.MainManageOrderActivity"
+            />
         <activity android:name=".ForgotPasswordActivity"
             android:parentActivityName=".LoginActivity"/>
         <activity

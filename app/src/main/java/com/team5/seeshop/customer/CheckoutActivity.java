@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -29,9 +30,9 @@ import java.util.List;
 import static com.team5.seeshop.customer.CartActivity.totalAmount;
 
 public class CheckoutActivity extends AppCompatActivity {
+
     Intent intent;
     List<CartModel> cartModelList;
-
 
 
     public FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -53,7 +54,7 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
 
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
         databaseReference = mDatabase.getReference(ConstantStrings.ORDERS).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
 
@@ -108,7 +109,53 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     public void placeOrder(View view) throws Exception {
-        cartPlaceOrder();
+
+        if (TextUtils.isEmpty(address_et.getText().toString())
+                || TextUtils.isEmpty(city_et.getText().toString())
+                || TextUtils.isEmpty(postal_code_et.getText().toString())
+                || TextUtils.isEmpty(phone_et.getText().toString())
+
+        )
+        {
+            Toast.makeText(CheckoutActivity.this, "All Fields are Required", Toast.LENGTH_SHORT).show();
+        }else if (phone_et.getText().toString().length()<10)
+        {
+            Toast.makeText(CheckoutActivity.this, "Enter correct phone number.", Toast.LENGTH_SHORT).show();
+
+        }
+        if(cash_on_delivery==0)
+        {
+            if (TextUtils.isEmpty(card_et.getText().toString())
+                    || TextUtils.isEmpty(exp_et.getText().toString())
+                    || TextUtils.isEmpty(cvv_et.getText().toString())
+
+            )
+            {
+                Toast.makeText(CheckoutActivity.this, "All Fields are Required", Toast.LENGTH_SHORT).show();
+            }else{
+
+                if (card_et.getText().toString().length()<16)
+                {
+                    Toast.makeText(CheckoutActivity.this, "Enter valid card number.", Toast.LENGTH_SHORT).show();
+
+                }else if (exp_et.getText().toString().length()<4)
+                {
+                    Toast.makeText(CheckoutActivity.this, "Enter valid Exp.", Toast.LENGTH_SHORT).show();
+
+                }else if (cvv_et.getText().toString().length()<3)
+                {
+                    Toast.makeText(CheckoutActivity.this, "Enter valid cvv.", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    cartPlaceOrder();
+                }}
+
+        }
+        else
+        {
+            cartPlaceOrder();
+        }
+
     }
 
 
@@ -138,7 +185,9 @@ public class CheckoutActivity extends AppCompatActivity {
         placeOrderModel.setPostal_code( postal_code_et.getText().toString());
         placeOrderModel.setPhone_number(phone_et.getText().toString());
         placeOrderModel.setSeller_id_list(seller_id_list);
-        if (cash_on_delivery==1)
+        placeOrderModel.setUser_name(sharedPref.getString(ConstantStrings.USER_NAME,"0"));
+
+        if (cash_on_delivery==0)
         {
             placeOrderModel.setCard(card_et.getText().toString());
             placeOrderModel.setExp(exp_et.getText().toString());

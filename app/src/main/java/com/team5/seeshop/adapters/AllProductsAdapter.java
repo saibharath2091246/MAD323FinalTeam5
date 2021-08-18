@@ -45,7 +45,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public DatabaseReference databaseReference ;
     SharedPreferences sharedPref;
 
-    public static int valOfCart=0;
+    public int valOfCart=0;
     int intentVal;
 
     public AllProductsAdapter(List<ProductModel> productModelList, Context context, int intentVal) {

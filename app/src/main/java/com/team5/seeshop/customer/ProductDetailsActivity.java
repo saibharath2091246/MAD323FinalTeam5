@@ -119,7 +119,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         quantity_tv.setText("Quantity : "+productModel.getQuantity());
         //  rating_bar.setRating(productModel.getRating());
 
-        if (intentVal==2 ||intentVal==3)
+        if (intentVal==2)
         {
             add_to_cart_btn.setVisibility(View.INVISIBLE);
         }

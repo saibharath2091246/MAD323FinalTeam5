@@ -54,14 +54,16 @@
             android:textAlignment="center"
             android:textColor="@color/app_color"
 
-            />  <TextView
+            />
+
+        <TextView
+            android:id="@+id/subject_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:id="@+id/subject_tv"
             android:text="200"
-            android:textSize="13sp"
             android:textAlignment="center"
             android:textColor="@color/app_color"
+            android:textSize="13sp"
 
             />
 

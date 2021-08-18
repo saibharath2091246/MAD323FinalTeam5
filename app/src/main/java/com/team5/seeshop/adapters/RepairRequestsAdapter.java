@@ -72,7 +72,7 @@ public class RepairRequestsAdapter extends RecyclerView.Adapter<RepairRequestsAd
 
         holder.title_tv.setText(repairModelList.get(position).getProduct_name());
         holder.subject_tv.setText("Subject : "+repairModelList.get(position).getSubject());
-        holder.customer_tv.setText("Customer : "+repairModelList.get(position).getUser_name());
+        holder.customer_tv.setText(repairModelList.get(position).getUser_name());
 
 
 
