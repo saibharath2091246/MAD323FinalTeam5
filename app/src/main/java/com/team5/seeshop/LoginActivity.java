@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.team5.seeshop.customer.CustomerDashboardActivity;
 import com.team5.seeshop.models.UserModel;
 import com.team5.seeshop.utils.ConstantStrings;
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     int IS_SELLER=0;
 
     ImageView show_pass_btn;
+    String device_token="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,27 @@ public class LoginActivity extends AppCompatActivity {
         show_pass_btn=findViewById(R.id.show_pass_btn);
 
         FirebaseAuth.getInstance().signOut();
+
+        /*get token*/
+        // [START log_reg_token]
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        device_token = task.getResult();
+
+                        // Log and toast
+
+                        Log.d("token", device_token);
+                    }
+                });
+
 
 
     }
@@ -98,6 +122,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                         if (user.getUser_enable()==0)
                                         {
+
+                                            databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("device_token").setValue(device_token);
                                             SharedPreferences.Editor editor = getSharedPreferences(ConstantStrings.SEESHOP_PREFS, MODE_PRIVATE).edit();
                                             editor.putString(ConstantStrings.USER_ID, FirebaseAuth.getInstance().getCurrentUser().getUid());
                                             editor.putString(ConstantStrings.USER_NAME, user.getUser_name());

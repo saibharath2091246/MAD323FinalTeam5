@@ -71,6 +71,7 @@ public class SellerOrdersAdapter extends RecyclerView.Adapter<SellerOrdersAdapte
             public void onClick(View view) {
                 Intent intent = new Intent(context, SellerOrderDetailsActivity.class);
                 intent.putExtra("order_details",productModelList.get(position));
+                intent.putExtra("intent_val",1);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

@@ -3,10 +3,12 @@ package com.team5.seeshop.customer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -16,11 +18,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.team5.seeshop.R;
 import com.team5.seeshop.models.CartModel;
 import com.team5.seeshop.models.PlaceOrderModel;
+import com.team5.seeshop.models.UserModel;
 import com.team5.seeshop.utils.ConstantStrings;
 import com.team5.seeshop.utils.SeeShopUtility;
 
@@ -48,13 +54,17 @@ public class CheckoutActivity extends AppCompatActivity {
     LinearLayout debit_card_layout;
 
     List<String> seller_id_list;
+
+    String device_token="",nameOfSeller;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
 
-//        getSupportActionBar().hide();
+        //  getSupportActionBar().hide();
         sharedPref = getSharedPreferences(ConstantStrings.SEESHOP_PREFS,0);
         databaseReference = mDatabase.getReference(ConstantStrings.ORDERS).child(sharedPref.getString(ConstantStrings.USER_ID,"0"));
 
@@ -62,6 +72,8 @@ public class CheckoutActivity extends AppCompatActivity {
         if (intent.hasExtra("productModelList"))
         {
             cartModelList = (List<CartModel>) intent.getSerializableExtra("productModelList");
+
+
         }
 
         seller_id_list =new ArrayList<>();
@@ -78,10 +90,16 @@ public class CheckoutActivity extends AppCompatActivity {
         debit_card_layout = findViewById(R.id.debit_card_layout);
 
 
+
         for (int i=0;i<cartModelList.size();i++)
         {
             seller_id_list.add(cartModelList.get(i).getProduct_seller_id());
+
+
         }
+
+
+
 
         cod_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -106,6 +124,14 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.e( "aaaaaeeeee: ",cartModelList.get(0).getProduct_seller_id());
+        getProfileData(cartModelList.get(0).getProduct_seller_id());
     }
 
     public void placeOrder(View view) throws Exception {
@@ -198,6 +224,11 @@ public class CheckoutActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
+                //sendEmail("order placed",,sharedPref.getString(ConstantStrings.USER_EMAIL,"a@gmail.com"));
+
+                // SendMail sm = new SendMail(CheckoutActivity.this, "sharedPref.getString(ConstantStrings.USER_EMAIL,"a@gmail.com")", "order placed", "Your order placed successfully !");
+
+                SeeShopUtility.notificationSetUp(CheckoutActivity.this,"Seller account",nameOfSeller+" have received new order",device_token);
                 Toast.makeText(CheckoutActivity.this,"Your order placed successfully !", Toast.LENGTH_SHORT).show();
                 DatabaseReference databaseReference =   mDatabase.getReference(ConstantStrings.CART).child(sharedPref.getString(ConstantStrings.USER_ID,"null"));
                 databaseReference.removeValue();
@@ -213,5 +244,47 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     /*------------------------------------------------------------------------------------------------------*/
+
+    private void getProfileData(String userid) {
+        ProgressDialog progressDialog= ProgressDialog.show(CheckoutActivity.this,"Fetching records","Please wait...",false,false);
+
+
+        progressDialog.show();
+        DatabaseReference   databaseReference = mDatabase.getReference(ConstantStrings.USERS_TABLE_KEY).child(userid);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+
+
+                    progressDialog.dismiss();
+
+
+                    UserModel userModel2 = dataSnapshot.getValue(UserModel.class);
+                    Log.d( "bvvbvbvbvb: ",userModel2.getUser_email());
+
+                    device_token=userModel2.getDevice_token();
+                    nameOfSeller=userModel2.getUser_name();
+
+                    Log.d( "safasfafasf: ",device_token);
+
+
+                }
+                else {
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                progressDialog.dismiss();
+
+            }
+
+        });
+
+    }
 
 }

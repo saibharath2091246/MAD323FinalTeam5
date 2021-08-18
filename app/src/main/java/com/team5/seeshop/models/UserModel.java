@@ -2,7 +2,7 @@ package com.team5.seeshop.models;
 
 public class UserModel {
 
-    private String user_id,user_name,user_email,user_company,user_password,user_type;
+    private String user_id,user_name,user_email,user_company,user_password,user_type,device_token;
 
     private int user_enable;
 
@@ -65,5 +65,13 @@ public class UserModel {
     @Override
     public String toString() {
         return user_name;
+    }
+
+    public String getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(String device_token) {
+        this.device_token = device_token;
     }
 }

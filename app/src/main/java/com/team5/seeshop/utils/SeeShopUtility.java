@@ -6,20 +6,36 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.team5.seeshop.firebase.MySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class SeeShopUtility {
+
+    final private static String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final public static String serverKey = "key=" + "AAAAncm3ufk:APA91bEKJ_VMRrbI17rbycyvj1nJ28wV8SOh2JyJbIy29NwsDVRQ6yt_UTb1wNrKjQNbRMeRGLN3pOzXRMCqg0e0XucoO1oF68OcmPGPXsFYv13FBs-r-9Lhe3SU5nTsUjdB1f5JTHJH";
+    final public static String contentType = "application/json";
 
     public static void startActivity(Context context,Class<?> cls )
     {
@@ -101,5 +117,50 @@ public class SeeShopUtility {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
 
         return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static void notificationSetUp(Context context,String title,String message,String token)
+    {
+        JSONObject notification = new JSONObject();
+        JSONObject notifcationBody = new JSONObject();
+        try {
+            notifcationBody.put("title", title);
+            notifcationBody.put("message", message);
+
+            notification.put("to", token);
+            notification.put("data", notifcationBody);
+        } catch (JSONException e) {
+            Log.e("TAG", "onCreate: " + e.getMessage() );
+        }
+        sendNotification(context,notification);
+    }
+
+    public static void sendNotification(Context context,final JSONObject notification) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("TAG", "onResponse: " + response.toString());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "Request error", Toast.LENGTH_LONG).show();
+                        Log.i("TAG", "onErrorResponse: Didn't work");
+                    }
+                })
+        {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 }
